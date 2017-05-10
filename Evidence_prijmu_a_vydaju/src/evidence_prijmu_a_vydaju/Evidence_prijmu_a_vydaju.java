@@ -5,6 +5,13 @@
  */
 package evidence_prijmu_a_vydaju;
 
+import java.io.File;
+import java.io.IOException;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import org.jopendocument.dom.spreadsheet.Sheet;
+import org.jopendocument.dom.spreadsheet.SpreadSheet;
+
 /**
  *
  * @author xiricek
@@ -12,10 +19,28 @@ package evidence_prijmu_a_vydaju;
 public class Evidence_prijmu_a_vydaju {
 
     /**
-     * @param args the command line arguments
+     * 
+     * @param args
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+     
+    public static void main(String[] args) throws IOException{
+        createFile();
+    }
+    
+    private static void createFile() throws IOException{
+        final Object[][] data = new Object[0][0];
+        
+        String[] columns = new String[] {};
+        TableModel model = new DefaultTableModel(data,columns);
+        
+        final File file = new File("evidence.ods");
+        SpreadSheet.createEmpty(model).saveAs(file);
+    }
+    
+    private static void addSums() throws IOException{
+        File file = new File("evidence.ods");
+        final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
+        sheet.getCellAt("A1").setValue("Neco");
     }
     
 }
