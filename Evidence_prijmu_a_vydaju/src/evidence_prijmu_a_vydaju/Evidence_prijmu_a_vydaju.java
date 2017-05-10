@@ -29,19 +29,19 @@ public class Evidence_prijmu_a_vydaju {
      */
      
     public static void main(String[] args) throws IOException{
-        
+        //createFile();
         Manager man = new Manager();
         Payment pay = new Payment();
         
         pay.setId(new Long(1));
-        pay.setAmount(new BigDecimal(153324));
+        pay.setAmount(new BigDecimal(21000));
         pay.setType(PaymentType.INCOME);
         pay.setDate(LocalDate.now());
         pay.setInfo("Info");
         
-        //man.startYear(2019);
+        //man.startYear(2017);
         man.registerPayment(pay);
-        man.countPayments();
+        //man.countPayments();
         //man.endYear(2020);
         
         
