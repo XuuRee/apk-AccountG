@@ -30,7 +30,9 @@ public class Evidence_prijmu_a_vydaju {
      
     public static void main(String[] args) throws IOException{
         //createFile();
+        
         Manager man = new Manager();
+        
         Payment pay = new Payment();
         Payment pay2 = new Payment();
         
@@ -46,8 +48,8 @@ public class Evidence_prijmu_a_vydaju {
         
         //man.startYear(2017);
         //man.registerPayment(pay);
-        man.countPayments(2017);
-        //man.registerPayment(pay2);
+        //man.countPayments(2017);
+        man.registerPayment(pay2);
         //man.countPayments();
         //man.endYear(2017);
         
