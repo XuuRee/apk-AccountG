@@ -72,12 +72,10 @@ public class Manager {
         BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
         BigDecimal sum = (BigDecimal) sheet.getCellAt("B3").getValue();
         
-       
-        
-        if(payment.getType()==PaymentType.INCOME){
+        if (payment.getType()==PaymentType.INCOME){
             sum = sum.add(payment.getAmount());
             income = income.add(payment.getAmount());
-        }else if(payment.getType()==PaymentType.EXPENSE){
+        } else if(payment.getType()==PaymentType.EXPENSE){
             sum = sum.subtract(payment.getAmount());
             expense = expense.add(payment.getAmount());
         }

@@ -32,14 +32,22 @@ public class Evidence_prijmu_a_vydaju {
         //createFile();
         Manager man = new Manager();
         Payment pay = new Payment();
+        Payment pay2 = new Payment();
         
         pay.setAmount(new BigDecimal(20000));
         pay.setType(PaymentType.EXPENSE);
         pay.setDate(LocalDate.now());
         pay.setInfo("Info");
         
+        pay2.setAmount(new BigDecimal(10500));
+        pay2.setType(PaymentType.INCOME);
+        pay2.setDate(LocalDate.now());
+        pay2.setInfo("New Info");
+        
         //man.startYear(2017);
-        man.registerPayment(pay);
+        //man.registerPayment(pay);
+        //man.countPayments();
+        man.registerPayment(pay2);
         //man.countPayments();
         //man.endYear(2020);
         

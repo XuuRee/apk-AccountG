@@ -29,18 +29,13 @@ public class Payment {
     public Payment() throws IOException{
         File file = new File("evidence.ods");
         int year = Year.now().getValue();
-        
         Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
-        Integer number = sheet.getRowCount()-3;
-        this.setId(number.longValue());
+        Integer number = sheet.getRowCount() - 3;
+        this.id = number.longValue();
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public BigDecimal getAmount() {
