@@ -34,8 +34,8 @@ public class Evidence_prijmu_a_vydaju {
         Payment pay = new Payment();
         
         pay.setId(new Long(1));
-        pay.setAmount(new BigDecimal(21000));
-        pay.setType(PaymentType.INCOME);
+        pay.setAmount(new BigDecimal(20000));
+        pay.setType(PaymentType.EXPENSE);
         pay.setDate(LocalDate.now());
         pay.setInfo("Info");
         

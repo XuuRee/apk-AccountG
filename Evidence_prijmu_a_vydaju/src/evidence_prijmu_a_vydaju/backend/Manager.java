@@ -60,7 +60,8 @@ public class Manager {
         int year = Year.now().getValue();
         
         Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
-        int i=getLastRowIndex(sheet);
+        sheet.ensureRowCount(sheet.getRowCount()+1);
+        int i=sheet.getRowCount();
         sheet.getCellAt("A"+i).setValue(payment.getId());
         sheet.getCellAt("B"+i).setValue(payment.getAmount());
         sheet.getCellAt("C"+i).setValue(payment.getType());
@@ -101,7 +102,7 @@ public class Manager {
     }
     
     private static void addSums(Sheet sheet) throws IOException{
-        sheet.ensureRowCount(100);
+        sheet.ensureRowCount(4);
         sheet.ensureColumnCount(10);
         sheet.getCellAt("A1").setValue("income");
         sheet.getCellAt("A2").setValue("expense");
