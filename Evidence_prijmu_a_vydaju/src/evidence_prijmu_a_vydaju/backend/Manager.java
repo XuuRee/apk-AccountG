@@ -94,9 +94,9 @@ public class Manager {
         File file = new File("evidence.ods");
         int year = Year.now().getValue();
         Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
-        int sum;
-        sum = Integer.parseInt(sheet.getCellAt("B3").getTextValue());
-        System.out.println("bilance: "+sum);
+        //int sum;
+        //sum = Integer.parseInt(sheet.getCellAt("B3").getTextValue());
+        System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
     }
     
     private static void addSums(Sheet sheet) throws IOException{

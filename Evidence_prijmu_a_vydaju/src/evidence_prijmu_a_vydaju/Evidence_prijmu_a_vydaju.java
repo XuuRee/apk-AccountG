@@ -39,15 +39,15 @@ public class Evidence_prijmu_a_vydaju {
         pay.setDate(LocalDate.now());
         pay.setInfo("Info");
         
-        pay2.setAmount(new BigDecimal(10500));
+        pay2.setAmount(new BigDecimal(30000));
         pay2.setType(PaymentType.INCOME);
         pay2.setDate(LocalDate.now());
         pay2.setInfo("New Info");
         
         //man.startYear(2017);
         //man.registerPayment(pay);
-        //man.countPayments();
-        man.registerPayment(pay2);
+        man.countPayments();
+        //man.registerPayment(pay2);
         //man.countPayments();
         //man.endYear(2020);
         
