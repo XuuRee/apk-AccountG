@@ -25,8 +25,13 @@ public class Evidence_prijmu_a_vydaju {
      */
      
     public static void main(String[] args) throws IOException{
+        
         Manager man = new Manager();
-        man.startYear(2018);
+        
+        man.startYear(2017);
+        man.countPayments();
+        //man.endYear(2020);
+        
         
     }
     
