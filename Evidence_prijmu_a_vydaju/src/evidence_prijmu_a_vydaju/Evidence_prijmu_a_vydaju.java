@@ -39,10 +39,10 @@ public class Evidence_prijmu_a_vydaju {
         pay.setDate(LocalDate.now());
         pay.setInfo("Info");
         
-        man.startYear(2018);
+        //man.startYear(2019);
         man.registerPayment(pay);
         man.countPayments();
-        man.endYear(2020);
+        //man.endYear(2020);
         
         
     }

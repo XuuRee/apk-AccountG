@@ -58,11 +58,11 @@ public class Manager {
         File file = new File("evidence.ods");
         int year = Year.now().getValue();
         Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
-        sheet.getCellAt("A6").setValue(payment.getAmount());
-        sheet.getCellAt("B6").setValue(payment.getAmount());
-        sheet.getCellAt("C6").setValue(payment.getType());
-        sheet.getCellAt("D6").setValue(payment.getDate());
-        sheet.getCellAt("E6").setValue(payment.getInfo());
+        sheet.getCellAt("A7").setValue(payment.getAmount());
+        sheet.getCellAt("B7").setValue(payment.getAmount());
+        sheet.getCellAt("C7").setValue(payment.getType());
+        sheet.getCellAt("D7").setValue(payment.getDate());
+        sheet.getCellAt("E7").setValue(payment.getInfo());
         File newFile = new File("evidence.ods");
         sheet.getSpreadSheet().saveAs(newFile);
     }
