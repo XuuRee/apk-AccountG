@@ -40,12 +40,10 @@ public class Manager {
     public void endYear(int year) throws IOException{
         File file = new File("evidence.ods");
         Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
-        int income;
-        int expense;
-        int sum;
-        income = Integer.parseInt(sheet.getCellAt("B1").getTextValue());
-        expense = Integer.parseInt(sheet.getCellAt("B2").getTextValue());
-        sum = Integer.parseInt(sheet.getCellAt("B3").getTextValue());
+        
+        BigDecimal income =(BigDecimal) sheet.getCellAt("B1").getValue();
+        BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
+        BigDecimal sum = (BigDecimal) sheet.getCellAt("B3").getValue();
         
         System.out.println("sum of income: "+income);
         System.out.println("sum of expenses: "+expense);
@@ -87,12 +85,13 @@ public class Manager {
         File newFile = new File("evidence.ods");
         sheet.getSpreadSheet().saveAs(newFile);
     }
+    
     /**
      * 
      */
-    public void countPayments() throws IOException{
+    public void countPayments(int year) throws IOException{
         File file = new File("evidence.ods");
-        int year = Year.now().getValue();
+        //int year = Year.now().getValue();
         Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
         //int sum;
         //sum = Integer.parseInt(sheet.getCellAt("B3").getTextValue());
