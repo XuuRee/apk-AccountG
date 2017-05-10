@@ -5,9 +5,14 @@
  */
 package evidence_prijmu_a_vydaju.backend;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Year;
 import java.util.Objects;
+import org.jopendocument.dom.spreadsheet.Sheet;
+import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 /**
  *
@@ -20,6 +25,15 @@ public class Payment {
     private LocalDate date;
     private PaymentType type;
     private String info;
+    
+    public Payment() throws IOException{
+        File file = new File("evidence.ods");
+        int year = Year.now().getValue();
+        
+        Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
+        Integer number = sheet.getRowCount()-3;
+        this.setId(number.longValue());
+    }
 
     public Long getId() {
         return id;
