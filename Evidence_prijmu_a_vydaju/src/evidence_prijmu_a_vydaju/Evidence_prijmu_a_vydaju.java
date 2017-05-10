@@ -25,7 +25,6 @@ public class Evidence_prijmu_a_vydaju {
      */
      
     public static void main(String[] args) throws IOException{
-        createFile();
         Manager man = new Manager();
         man.startYear(2018);
         
