@@ -6,8 +6,12 @@
 package evidence_prijmu_a_vydaju;
 
 import evidence_prijmu_a_vydaju.backend.Manager;
+import evidence_prijmu_a_vydaju.backend.Payment;
+import evidence_prijmu_a_vydaju.backend.PaymentType;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.jopendocument.dom.spreadsheet.Sheet;
@@ -27,10 +31,18 @@ public class Evidence_prijmu_a_vydaju {
     public static void main(String[] args) throws IOException{
         
         Manager man = new Manager();
+        Payment pay = new Payment();
         
-        man.startYear(2017);
+        pay.setId(new Long(1));
+        pay.setAmount(new BigDecimal(153324));
+        pay.setType(PaymentType.INCOME);
+        pay.setDate(LocalDate.now());
+        pay.setInfo("Info");
+        
+        man.startYear(2018);
+        man.registerPayment(pay);
         man.countPayments();
-        //man.endYear(2020);
+        man.endYear(2020);
         
         
     }

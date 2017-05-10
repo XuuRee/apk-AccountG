@@ -17,17 +17,19 @@ import org.jopendocument.dom.spreadsheet.SpreadSheet;
  * @author Lenovo
  */
 public class Manager {
+    private static final String[] tableHeader = new String[] { "id", "amount", "type", "date", "info" };
+    
     /**
      * 
      * @param year 
      */
     public void startYear(int year) throws IOException{
         File file = new File("evidence.ods");
-        SpreadSheet sheet = SpreadSheet.createFromFile(file);
-        Sheet newSheet = sheet.addSheet(year+"");
+        SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
+        Sheet newSheet = spreadSheet.addSheet(year+"");
         addSums(newSheet);
         File newFile = new File("evidence.ods");
-        OOUtils.open(newSheet.getSpreadSheet().saveAs(newFile));
+        newSheet.getSpreadSheet().saveAs(newFile);
         
     }
     /**
@@ -52,8 +54,17 @@ public class Manager {
      * 
      * @param payment 
      */
-    public void registerPayment(Payment payment){
-    
+    public void registerPayment(Payment payment) throws IOException{
+        File file = new File("evidence.ods");
+        int year = Year.now().getValue();
+        Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
+        sheet.getCellAt("A6").setValue(payment.getAmount());
+        sheet.getCellAt("B6").setValue(payment.getAmount());
+        sheet.getCellAt("C6").setValue(payment.getType());
+        sheet.getCellAt("D6").setValue(payment.getDate());
+        sheet.getCellAt("E6").setValue(payment.getInfo());
+        File newFile = new File("evidence.ods");
+        sheet.getSpreadSheet().saveAs(newFile);
     }
     /**
      * 
@@ -82,6 +93,11 @@ public class Manager {
         sheet.getCellAt("D4").setValue("date");
         sheet.getCellAt("E4").setValue("info");
         
+    }
+    
+    /*
+    private static void createTable() {
         
     }
+    */
 }
