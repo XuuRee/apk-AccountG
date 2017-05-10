@@ -5,6 +5,7 @@
  */
 package evidence_prijmu_a_vydaju;
 
+import evidence_prijmu_a_vydaju.backend.Manager;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
@@ -25,22 +26,23 @@ public class Evidence_prijmu_a_vydaju {
      
     public static void main(String[] args) throws IOException{
         createFile();
+        Manager man = new Manager();
+        man.startYear(2018);
+        
     }
     
     private static void createFile() throws IOException{
-        final Object[][] data = new Object[0][0];
+        final Object[][] data = new Object[2][2];
+        data[0][0]=new String("income");
+        data[1][0]=new String("expense");
         
-        String[] columns = new String[] {};
+        String[] columns = new String[] {"prehled"};
         TableModel model = new DefaultTableModel(data,columns);
         
         final File file = new File("evidence.ods");
         SpreadSheet.createEmpty(model).saveAs(file);
     }
     
-    private static void addSums() throws IOException{
-        File file = new File("evidence.ods");
-        final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
-        sheet.getCellAt("A1").setValue("Neco");
-    }
+    
     
 }
