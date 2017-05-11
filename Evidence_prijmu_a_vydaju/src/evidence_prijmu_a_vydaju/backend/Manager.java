@@ -70,10 +70,10 @@ public class Manager {
         BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
         BigDecimal sum = (BigDecimal) sheet.getCellAt("B3").getValue();
         
-        if (payment.getType()==PaymentType.INCOME){
+        if (payment.getType() == PaymentType.INCOME){
             sum = sum.add(payment.getAmount());
             income = income.add(payment.getAmount());
-        } else if(payment.getType()==PaymentType.EXPENSE){
+        } else if(payment.getType() == PaymentType.EXPENSE){
             sum = sum.subtract(payment.getAmount());
             expense = expense.add(payment.getAmount());
         }
@@ -91,10 +91,7 @@ public class Manager {
      */
     public void countPayments(int year) throws IOException{
         File file = new File("evidence.ods");
-        //int year = Year.now().getValue();
         Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
-        //int sum;
-        //sum = Integer.parseInt(sheet.getCellAt("B3").getTextValue());
         System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
     }
     
@@ -103,7 +100,7 @@ public class Manager {
         sheet.ensureColumnCount(10);
         sheet.getCellAt("A1").setValue("income");
         sheet.getCellAt("A2").setValue("expense");
-        sheet.getCellAt("A3").setValue("suma");
+        sheet.getCellAt("A3").setValue("sum");
         sheet.getCellAt("B1").setValue(0.0);
         sheet.getCellAt("B2").setValue(0.0);
         sheet.getCellAt("B3").setValue(0.0);
@@ -115,21 +112,4 @@ public class Manager {
         
     }
     
-    private int getLastRowIndex(Sheet sheet){
-        int i=0;
-        while(true){
-            String string = sheet.getCellAt(0,i).getTextValue();
-            if(string.isEmpty()){
-                i++;
-                return i;
-            }
-            i++;
-        }
-    }
-    
-    /*
-    private static void createTable() {
-        
-    }
-    */
 }

@@ -27,47 +27,42 @@ public class Evidence_prijmu_a_vydaju {
      * 
      * @param args
      */
-     
     public static void main(String[] args) throws IOException{
-        //createFile();
         
+        //createFile();
         Manager man = new Manager();
         
         Payment pay = new Payment();
-        Payment pay2 = new Payment();
-        
-        pay.setAmount(new BigDecimal(20000));
+        pay.setAmount(new BigDecimal(2000));
         pay.setType(PaymentType.EXPENSE);
         pay.setDate(LocalDate.now());
         pay.setInfo("Info");
+        man.registerPayment(pay);
         
-        pay2.setAmount(new BigDecimal(30000));
+        Payment pay2 = new Payment();
+        pay2.setAmount(new BigDecimal(3000));
         pay2.setType(PaymentType.INCOME);
         pay2.setDate(LocalDate.now());
         pay2.setInfo("New Info");
-        
+        man.registerPayment(pay2);
+
+        man.countPayments(2017);
         //man.startYear(2017);
         //man.registerPayment(pay);
         //man.countPayments(2017);
-        man.registerPayment(pay2);
-        //man.countPayments();
         //man.endYear(2017);
-        
-        
     }
     
     private static void createFile() throws IOException{
         final Object[][] data = new Object[2][2];
-        data[0][0]=new String("income");
-        data[1][0]=new String("expense");
+        data[0][0]=new String("PB138 / Moderni znackovaci jazyky a jejich aplikace");
+        data[1][0]=new String("Lukas Suchanek, Michal Iricek, Peter Grajko, Filip Valchar");
         
-        String[] columns = new String[] {"prehled"};
-        TableModel model = new DefaultTableModel(data,columns);
+        String[] columns = new String[] {"Evidence prijmu a vydaju"};
+        TableModel model = new DefaultTableModel(data, columns);
         
         final File file = new File("evidence.ods");
         SpreadSheet.createEmpty(model).saveAs(file);
     }
-    
-    
     
 }
