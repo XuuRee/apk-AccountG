@@ -27,10 +27,14 @@ public class Manager {
     public void startYear(int year) throws IOException{
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
-        Sheet newSheet = spreadSheet.addSheet(year+"");
-        addSums(newSheet);
-        File newFile = new File("evidence.ods");
-        newSheet.getSpreadSheet().saveAs(newFile);
+        if(checkIfYearExist(spreadSheet, year)){
+            System.err.println("Evidence for year: " + year +" already started");
+        }else{
+            Sheet newSheet = spreadSheet.addSheet(year+"");
+            addSums(newSheet);
+            File newFile = new File("evidence.ods");
+            newSheet.getSpreadSheet().saveAs(newFile);
+        }
         
     }
     /**
@@ -39,15 +43,20 @@ public class Manager {
      */
     public void endYear(int year) throws IOException{
         File file = new File("evidence.ods");
-        Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
+        SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
         
-        BigDecimal income =(BigDecimal) sheet.getCellAt("B1").getValue();
-        BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
-        BigDecimal sum = (BigDecimal) sheet.getCellAt("B3").getValue();
-        
-        System.out.println("sum of income: "+income);
-        System.out.println("sum of expenses: "+expense);
-        System.out.println("bilance: "+sum);
+        if(checkIfYearExist(spreadSheet, year)){
+            Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
+            BigDecimal income =(BigDecimal) sheet.getCellAt("B1").getValue();
+            BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
+            BigDecimal sum = (BigDecimal) sheet.getCellAt("B3").getValue();
+
+            System.out.println("sum of income: "+income);
+            System.out.println("sum of expenses: "+expense);
+            System.out.println("bilance: "+sum);
+        }else{
+            System.err.println("Year " + year + " wasn't started");
+        }
     }
     /**
      * 
@@ -56,21 +65,25 @@ public class Manager {
     public void registerPayment(Payment payment) throws IOException{
         File file = new File("evidence.ods");
         int year = Year.now().getValue();
-        
-        Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
-        sheet.ensureRowCount(sheet.getRowCount() + 1);
-        
-        int row = sheet.getRowCount();
-        sheet.getCellAt("A" + row).setValue(payment.getId());
-        sheet.getCellAt("B" + row).setValue(payment.getAmount());
-        sheet.getCellAt("C" + row).setValue(payment.getType());
-        sheet.getCellAt("D" + row).setValue(payment.getDate());
-        sheet.getCellAt("E" + row).setValue(payment.getInfo());
-        
-        recalculateSummary(sheet, payment);
-        
-        File newFile = new File("evidence.ods");
-        sheet.getSpreadSheet().saveAs(newFile);
+        SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
+        if(checkIfYearExist(spreadSheet, year)){
+            Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
+            sheet.ensureRowCount(sheet.getRowCount() + 1);
+
+            int row = sheet.getRowCount();
+            sheet.getCellAt("A" + row).setValue(payment.getId());
+            sheet.getCellAt("B" + row).setValue(payment.getAmount());
+            sheet.getCellAt("C" + row).setValue(payment.getType());
+            sheet.getCellAt("D" + row).setValue(payment.getDate());
+            sheet.getCellAt("E" + row).setValue(payment.getInfo());
+
+            recalculateSummary(sheet, payment);
+
+            File newFile = new File("evidence.ods");
+            sheet.getSpreadSheet().saveAs(newFile);
+        }else{
+            System.err.println("Evidence for this year wasn't started");
+        }
     }
     
     /**
@@ -78,8 +91,13 @@ public class Manager {
      */
     public void countPayments(int year) throws IOException{
         File file = new File("evidence.ods");
-        Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
-        System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
+        SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
+        if(checkIfYearExist(spreadSheet, year)){
+            Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
+            System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
+        }else{
+            System.err.println("Year " + year + " wasn't started");
+        }
     }
     
     private static void addSums(Sheet sheet) throws IOException{
@@ -116,5 +134,10 @@ public class Manager {
         sheet.getCellAt("B2").setValue(expense);
         sheet.getCellAt("B3").setValue(sum);
     }
-    
+     private static boolean checkIfYearExist(SpreadSheet spreadSheet, int year){
+         if(spreadSheet.getSheet(String.valueOf(year))!=null){
+             return true;
+         }
+         return false;
+     }
 }
