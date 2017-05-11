@@ -58,29 +58,16 @@ public class Manager {
         int year = Year.now().getValue();
         
         Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
-        sheet.ensureRowCount(sheet.getRowCount()+1);
-        int i=sheet.getRowCount();
-        sheet.getCellAt("A"+i).setValue(payment.getId());
-        sheet.getCellAt("B"+i).setValue(payment.getAmount());
-        sheet.getCellAt("C"+i).setValue(payment.getType());
-        sheet.getCellAt("D"+i).setValue(payment.getDate());
-        sheet.getCellAt("E"+i).setValue(payment.getInfo());
+        sheet.ensureRowCount(sheet.getRowCount() + 1);
         
-        BigDecimal income =(BigDecimal) sheet.getCellAt("B1").getValue();
-        BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
-        BigDecimal sum = (BigDecimal) sheet.getCellAt("B3").getValue();
+        int row = sheet.getRowCount();
+        sheet.getCellAt("A" + row).setValue(payment.getId());
+        sheet.getCellAt("B" + row).setValue(payment.getAmount());
+        sheet.getCellAt("C" + row).setValue(payment.getType());
+        sheet.getCellAt("D" + row).setValue(payment.getDate());
+        sheet.getCellAt("E" + row).setValue(payment.getInfo());
         
-        if (payment.getType() == PaymentType.INCOME){
-            sum = sum.add(payment.getAmount());
-            income = income.add(payment.getAmount());
-        } else if(payment.getType() == PaymentType.EXPENSE){
-            sum = sum.subtract(payment.getAmount());
-            expense = expense.add(payment.getAmount());
-        }
-        
-        sheet.getCellAt("B1").setValue(income);
-        sheet.getCellAt("B2").setValue(expense);
-        sheet.getCellAt("B3").setValue(sum);
+        recalculateSummary(sheet, payment);
         
         File newFile = new File("evidence.ods");
         sheet.getSpreadSheet().saveAs(newFile);
@@ -110,6 +97,24 @@ public class Manager {
         sheet.getCellAt("D4").setValue("date");
         sheet.getCellAt("E4").setValue("info");
         
+    }
+    
+    public void recalculateSummary(Sheet sheet, Payment payment) {
+        BigDecimal income =(BigDecimal) sheet.getCellAt("B1").getValue();
+        BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
+        BigDecimal sum = (BigDecimal) sheet.getCellAt("B3").getValue();
+        
+        if (payment.getType() == PaymentType.INCOME){
+            sum = sum.add(payment.getAmount());
+            income = income.add(payment.getAmount());
+        } else if(payment.getType() == PaymentType.EXPENSE){
+            sum = sum.subtract(payment.getAmount());
+            expense = expense.add(payment.getAmount());
+        }
+        
+        sheet.getCellAt("B1").setValue(income);
+        sheet.getCellAt("B2").setValue(expense);
+        sheet.getCellAt("B3").setValue(sum);
     }
     
 }
