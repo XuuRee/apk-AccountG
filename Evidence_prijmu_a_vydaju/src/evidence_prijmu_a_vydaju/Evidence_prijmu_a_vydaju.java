@@ -27,8 +27,7 @@ public class Evidence_prijmu_a_vydaju {
      * 
      * @param args
      */
-    public static void main(String[] args) throws IOException{
-        
+    public static void main(String[] args) throws IOException {
         createFile();
         Manager man = new Manager();
         
@@ -55,7 +54,6 @@ public class Evidence_prijmu_a_vydaju {
         //man.registerPayment(pay);
         //man.countPayments(2017);
         man.endYear(2017);
-        man.registerPayment(pay2);
         man.endYear(2018);
     }
     

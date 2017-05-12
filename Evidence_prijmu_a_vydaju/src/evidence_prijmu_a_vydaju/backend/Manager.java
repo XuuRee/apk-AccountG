@@ -19,48 +19,59 @@ import org.jopendocument.dom.spreadsheet.SpreadSheet;
 public class Manager {
     
     /**
+     * Method create new sheet in spreadsheet with given year and add rows 
+     * 'income', 'expanse' and 'sum'. Save all changes in document.
      * 
-     * @param year 
+     * @param year given integer that create new sheet year
+     * @return true if sheet with new year is in the file, false otherwise
      */
-    public void startYear(int year) throws IOException{
-        File file = new File("evidence.ods");
-        SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
-        if (checkIfYearExist(spreadSheet, year)) {
-            System.err.println("Evidence for year: " + year + " already started");
-        } else{
-            Sheet newSheet = spreadSheet.addSheet(year+"");
-            addSums(newSheet);
-            File newFile = new File("evidence.ods");
-            newSheet.getSpreadSheet().saveAs(newFile);
-        }
-    }
-    
-    /**
-     * 
-     * @param year 
-     */
-    public void endYear(int year) throws IOException{
+    public boolean startYear(int year) throws IOException {
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
         
         if (checkIfYearExist(spreadSheet, year)) {
-            Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
-            BigDecimal income =(BigDecimal) sheet.getCellAt("B1").getValue();
-            BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
-            BigDecimal sum = (BigDecimal) sheet.getCellAt("B3").getValue();
-
-            System.out.println("sum of income: "+income);
-            System.out.println("sum of expenses: "+expense);
-            System.out.println("bilance: "+sum);
-            
-            int row = sheet.getRowCount() + 1;
-            sheet.ensureRowCount(row);
-            sheet.getCellAt("A" + row).setValue("end");
-            File newFile = new File("evidence.ods");
-            sheet.getSpreadSheet().saveAs(newFile);
-        } else{
+            System.err.println("Evidence for year: " + year + " already started");
+            return false;
+        }             
+        
+        Sheet newSheet = spreadSheet.addSheet(year+"");
+        addSums(newSheet);
+        saveFile(newSheet);
+        return true;
+    }
+    
+    /**
+     * Method print items 'income', 'expanse' and 'sum'. To the last row 
+     * insert 'end' mark. Save all changes in document.
+     * 
+     * @param year given integer that create new sheet year
+     * @return true if sheet was close, false otherwise 
+     */
+    public boolean endYear(int year) throws IOException {
+        File file = new File("evidence.ods");
+        SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
+        
+        if (!checkIfYearExist(spreadSheet, year)) {
             System.err.println("Year " + year + " wasn't started");
+            return false;
         }
+        
+        Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
+        
+        BigDecimal income = (BigDecimal) sheet.getCellAt("B1").getValue();
+        BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
+        BigDecimal sum = (BigDecimal) sheet.getCellAt("B3").getValue();
+
+        System.out.println("sum of income: " + income);
+        System.out.println("sum of expenses: " + expense);
+        System.out.println("bilance: " + sum);
+            
+        int row = sheet.getRowCount() + 1;
+        sheet.ensureRowCount(row);
+        sheet.getCellAt("A" + row).setValue("end");
+        
+        saveFile(sheet);
+        return true;
     }
     
     /**
@@ -70,7 +81,7 @@ public class Manager {
      * @param payment given payment with all details
      * @return true if payment was add to the document, false otherwise 
      */
-    public boolean registerPayment(Payment payment) throws IOException{
+    public boolean registerPayment(Payment payment) throws IOException {
         File file = new File("evidence.ods");
         int year = Year.now().getValue();
         
@@ -98,16 +109,14 @@ public class Manager {
         sheet.getCellAt("E" + row).setValue(payment.getInfo());
 
         recalculateSummary(sheet, payment);
-        
-        File newFile = new File("evidence.ods");
-        sheet.getSpreadSheet().saveAs(newFile);
+        saveFile(sheet);
         return true;
     }
     
     /**
      * 
      */
-    public void countPayments(int year) throws IOException{
+    public void countPayments(int year) throws IOException {
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
         if (checkIfYearExist(spreadSheet, year)) {
@@ -118,7 +127,7 @@ public class Manager {
         }
     }
     
-    private static void addSums(Sheet sheet) throws IOException{
+    private static void addSums(Sheet sheet) throws IOException {
         sheet.ensureRowCount(4);
         sheet.ensureColumnCount(10);
         sheet.getCellAt("A1").setValue("income");
@@ -161,4 +170,9 @@ public class Manager {
         return !last.equals("end");
     }
 
+    private static void saveFile(Sheet sheet) throws IOException {
+        File newFile = new File("evidence.ods");
+        sheet.getSpreadSheet().saveAs(newFile);
+    }
+    
 }
