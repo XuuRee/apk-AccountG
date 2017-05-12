@@ -5,6 +5,7 @@
  */
 package evidence_prijmu_a_vydaju.backend;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -18,7 +19,6 @@ import org.jopendocument.dom.spreadsheet.SpreadSheet;
  * @author Lenovo
  */
 public class Manager {
-    //private static final String[] tableHeader = new String[] { "id", "amount", "type", "date", "info" };
     
     /**
      * 
@@ -27,16 +27,16 @@ public class Manager {
     public void startYear(int year) throws IOException{
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
-        if(checkIfYearExist(spreadSheet, year)){
-            System.err.println("Evidence for year: " + year +" already started");
-        }else{
+        if (checkIfYearExist(spreadSheet, year)) {
+            System.err.println("Evidence for year: " + year + " already started");
+        } else{
             Sheet newSheet = spreadSheet.addSheet(year+"");
             addSums(newSheet);
             File newFile = new File("evidence.ods");
             newSheet.getSpreadSheet().saveAs(newFile);
         }
-        
     }
+    
     /**
      * 
      * @param year 
@@ -45,7 +45,7 @@ public class Manager {
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
         
-        if(checkIfYearExist(spreadSheet, year)){
+        if (checkIfYearExist(spreadSheet, year)) {
             Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
             BigDecimal income =(BigDecimal) sheet.getCellAt("B1").getValue();
             BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
@@ -54,10 +54,17 @@ public class Manager {
             System.out.println("sum of income: "+income);
             System.out.println("sum of expenses: "+expense);
             System.out.println("bilance: "+sum);
-        }else{
+            
+            int row = sheet.getRowCount() + 1;
+            sheet.ensureRowCount(row);
+            sheet.getCellAt("A" + row).setValue("end");
+            File newFile = new File("evidence.ods");
+            sheet.getSpreadSheet().saveAs(newFile);
+        } else{
             System.err.println("Year " + year + " wasn't started");
         }
     }
+    
     /**
      * 
      * @param payment 
@@ -66,22 +73,27 @@ public class Manager {
         File file = new File("evidence.ods");
         int year = Year.now().getValue();
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
-        if(checkIfYearExist(spreadSheet, year)){
+        
+        if (checkIfYearExist(spreadSheet, year)) {
             Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
-            sheet.ensureRowCount(sheet.getRowCount() + 1);
+            if (checkIfYearContinue(sheet)) {
+                sheet.ensureRowCount(sheet.getRowCount() + 1);
 
-            int row = sheet.getRowCount();
-            sheet.getCellAt("A" + row).setValue(payment.getId());
-            sheet.getCellAt("B" + row).setValue(payment.getAmount());
-            sheet.getCellAt("C" + row).setValue(payment.getType());
-            sheet.getCellAt("D" + row).setValue(payment.getDate());
-            sheet.getCellAt("E" + row).setValue(payment.getInfo());
+                int row = sheet.getRowCount();
+                sheet.getCellAt("A" + row).setValue(payment.getId());
+                sheet.getCellAt("B" + row).setValue(payment.getAmount());
+                sheet.getCellAt("C" + row).setValue(payment.getType());
+                sheet.getCellAt("D" + row).setValue(payment.getDate());
+                sheet.getCellAt("E" + row).setValue(payment.getInfo());
 
-            recalculateSummary(sheet, payment);
+                recalculateSummary(sheet, payment);
 
-            File newFile = new File("evidence.ods");
-            sheet.getSpreadSheet().saveAs(newFile);
-        }else{
+                File newFile = new File("evidence.ods");
+                sheet.getSpreadSheet().saveAs(newFile);
+            } else {
+                System.err.println("Evidence for this year is already in the end");
+            }
+        } else {
             System.err.println("Evidence for this year wasn't started");
         }
     }
@@ -92,10 +104,10 @@ public class Manager {
     public void countPayments(int year) throws IOException{
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
-        if(checkIfYearExist(spreadSheet, year)){
+        if (checkIfYearExist(spreadSheet, year)) {
             Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
             System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
-        }else{
+        } else{
             System.err.println("Year " + year + " wasn't started");
         }
     }
@@ -114,7 +126,6 @@ public class Manager {
         sheet.getCellAt("C4").setValue("type");
         sheet.getCellAt("D4").setValue("date");
         sheet.getCellAt("E4").setValue("info");
-        
     }
     
     public void recalculateSummary(Sheet sheet, Payment payment) {
@@ -134,10 +145,20 @@ public class Manager {
         sheet.getCellAt("B2").setValue(expense);
         sheet.getCellAt("B3").setValue(sum);
     }
-     private static boolean checkIfYearExist(SpreadSheet spreadSheet, int year){
-         if(spreadSheet.getSheet(String.valueOf(year))!=null){
-             return true;
-         }
-         return false;
-     }
+    
+    private static boolean checkIfYearExist(SpreadSheet spreadSheet, int year){
+        if (spreadSheet.getSheet(String.valueOf(year)) != null) {
+            return true;
+        }
+        return false;
+    }
+    
+    private static boolean checkIfYearContinue(Sheet sheet){
+        String last = sheet.getCellAt("A" + sheet.getRowCount()).getTextValue(); 
+        if (last.equals("end")) {
+            return false;
+        }
+        return true;
+    }
+    
 }

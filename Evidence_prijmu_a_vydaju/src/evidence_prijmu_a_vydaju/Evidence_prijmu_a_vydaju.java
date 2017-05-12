@@ -29,30 +29,34 @@ public class Evidence_prijmu_a_vydaju {
      */
     public static void main(String[] args) throws IOException{
         
-        //createFile();
+        createFile();
         Manager man = new Manager();
         
+        man.startYear(2017);
+        man.startYear(2018);
         Payment pay = new Payment();
         pay.setAmount(new BigDecimal(2000));
         pay.setType(PaymentType.EXPENSE);
         pay.setDate(LocalDate.now());
         pay.setInfo("Info");
-        
+        man.registerPayment(pay);
         
         Payment pay2 = new Payment();
         pay2.setAmount(new BigDecimal(3000));
         pay2.setType(PaymentType.INCOME);
         pay2.setDate(LocalDate.now());
         pay2.setInfo("New Info");
-        
-        
         man.registerPayment(pay2);
+        
+        
         //man.registerPayment(pay);
         //man.countPayments(2019);
         //man.startYear(2018);
         //man.registerPayment(pay);
         //man.countPayments(2017);
-        //man.endYear(2017);
+        man.endYear(2017);
+        man.registerPayment(pay2);
+        man.endYear(2018);
     }
     
     private static void createFile() throws IOException{
