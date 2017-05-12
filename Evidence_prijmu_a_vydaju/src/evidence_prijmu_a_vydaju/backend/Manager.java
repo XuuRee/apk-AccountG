@@ -69,33 +69,37 @@ public class Manager {
      * 
      * @param payment 
      */
-    public void registerPayment(Payment payment) throws IOException{
+    public boolean registerPayment(Payment payment) throws IOException{
         File file = new File("evidence.ods");
         int year = Year.now().getValue();
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
         
-        if (checkIfYearExist(spreadSheet, year)) {
-            Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
-            if (checkIfYearContinue(sheet)) {
-                sheet.ensureRowCount(sheet.getRowCount() + 1);
-
-                int row = sheet.getRowCount();
-                sheet.getCellAt("A" + row).setValue(payment.getId());
-                sheet.getCellAt("B" + row).setValue(payment.getAmount());
-                sheet.getCellAt("C" + row).setValue(payment.getType());
-                sheet.getCellAt("D" + row).setValue(payment.getDate());
-                sheet.getCellAt("E" + row).setValue(payment.getInfo());
-
-                recalculateSummary(sheet, payment);
-
-                File newFile = new File("evidence.ods");
-                sheet.getSpreadSheet().saveAs(newFile);
-            } else {
-                System.err.println("Evidence for this year is already in the end");
-            }
-        } else {
+        if (!checkIfYearExist(spreadSheet, year)) {
             System.err.println("Evidence for this year wasn't started");
+            return false;
         }
+        
+        Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
+        
+        if (!checkIfYearContinue(sheet)) {
+            System.err.println("Evidence for this year is already in the end");
+            return false;
+        }
+        
+        sheet.ensureRowCount(sheet.getRowCount() + 1);
+
+        int row = sheet.getRowCount();
+        sheet.getCellAt("A" + row).setValue(payment.getId());
+        sheet.getCellAt("B" + row).setValue(payment.getAmount());
+        sheet.getCellAt("C" + row).setValue(payment.getType());
+        sheet.getCellAt("D" + row).setValue(payment.getDate());
+        sheet.getCellAt("E" + row).setValue(payment.getInfo());
+
+        recalculateSummary(sheet, payment);
+
+        File newFile = new File("evidence.ods");
+        sheet.getSpreadSheet().saveAs(newFile);
+        return true;
     }
     
     /**
