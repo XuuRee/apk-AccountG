@@ -5,12 +5,10 @@
  */
 package evidence_prijmu_a_vydaju.backend;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Year;
-import org.jopendocument.dom.OOUtils;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
@@ -66,12 +64,16 @@ public class Manager {
     }
     
     /**
+     * Method write payment to the document and recalculate items 'income', 
+     * 'expanse' and 'sum'. All changes save to the file.
      * 
-     * @param payment 
+     * @param payment given payment with all details
+     * @return true if payment was add to the document, false otherwise 
      */
     public boolean registerPayment(Payment payment) throws IOException{
         File file = new File("evidence.ods");
         int year = Year.now().getValue();
+        
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
         
         if (!checkIfYearExist(spreadSheet, year)) {
@@ -85,7 +87,7 @@ public class Manager {
             System.err.println("Evidence for this year is already in the end");
             return false;
         }
-        
+
         sheet.ensureRowCount(sheet.getRowCount() + 1);
 
         int row = sheet.getRowCount();
@@ -96,7 +98,7 @@ public class Manager {
         sheet.getCellAt("E" + row).setValue(payment.getInfo());
 
         recalculateSummary(sheet, payment);
-
+        
         File newFile = new File("evidence.ods");
         sheet.getSpreadSheet().saveAs(newFile);
         return true;
@@ -132,7 +134,7 @@ public class Manager {
         sheet.getCellAt("E4").setValue("info");
     }
     
-    public void recalculateSummary(Sheet sheet, Payment payment) {
+    private static void recalculateSummary(Sheet sheet, Payment payment) {
         BigDecimal income =(BigDecimal) sheet.getCellAt("B1").getValue();
         BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
         BigDecimal sum = (BigDecimal) sheet.getCellAt("B3").getValue();
@@ -140,7 +142,7 @@ public class Manager {
         if (payment.getType() == PaymentType.INCOME){
             sum = sum.add(payment.getAmount());
             income = income.add(payment.getAmount());
-        } else if(payment.getType() == PaymentType.EXPENSE){
+        } else if (payment.getType() == PaymentType.EXPENSE){
             sum = sum.subtract(payment.getAmount());
             expense = expense.add(payment.getAmount());
         }
@@ -150,19 +152,13 @@ public class Manager {
         sheet.getCellAt("B3").setValue(sum);
     }
     
-    private static boolean checkIfYearExist(SpreadSheet spreadSheet, int year){
-        if (spreadSheet.getSheet(String.valueOf(year)) != null) {
-            return true;
-        }
-        return false;
+    private static boolean checkIfYearExist(SpreadSheet spreadSheet, int year) {
+        return spreadSheet.getSheet(String.valueOf(year)) != null;
     }
     
-    private static boolean checkIfYearContinue(Sheet sheet){
+    private static boolean checkIfYearContinue(Sheet sheet) {
         String last = sheet.getCellAt("A" + sheet.getRowCount()).getTextValue(); 
-        if (last.equals("end")) {
-            return false;
-        }
-        return true;
+        return !last.equals("end");
     }
-    
+
 }
