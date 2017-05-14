@@ -6,8 +6,9 @@
 package evidence_prijmu_a_vydaju.backend;
 
 /**
- *
- * @author xiricek
+ * Class defines two possible types of payment: 'income' and 'expense'.
+ * 
+ * @author Lukas Suchanek, Michal Iricek, Filip Valchar, Peter Garajko
  */
 public enum PaymentType {
     INCOME,

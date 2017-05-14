@@ -13,8 +13,10 @@ import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 /**
- *
- * @author Lenovo
+ * Manager is main class for editing file 'evidence'. Public method that are
+ * approachable: startYear, endYear, registerPayment and countPayments.
+ * 
+ * @author Lukas Suchanek, Michal Iricek Filip Valchar, Peter Garajko
  */
 public class Manager {
     
@@ -34,8 +36,8 @@ public class Manager {
             return false;
         }             
         
-        Sheet newSheet = spreadSheet.addSheet(year+"");
-        addSums(newSheet);
+        Sheet newSheet = spreadSheet.addSheet(year + "");
+        addHeading(newSheet);
         saveFile(newSheet);
         return true;
     }
@@ -114,20 +116,33 @@ public class Manager {
     }
     
     /**
+     * Method take given year and print actual balance sheet.
      * 
+     * @param year given year for counting all payments
+     * @return true if balance sheet is printed, false otherwise
      */
-    public void countPayments(int year) throws IOException {
+    public boolean countPayments(int year) throws IOException {
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
-        if (checkIfYearExist(spreadSheet, year)) {
-            Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
-            System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
-        } else{
+        
+        if (!checkIfYearExist(spreadSheet, year)) {
             System.err.println("Year " + year + " wasn't started");
+            return false;
         }
+        
+        Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
+        System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
+        return true;
     }
     
-    private static void addSums(Sheet sheet) throws IOException {
+    /**
+     * Private method that can add items 'income', 'expense' and 'sum' to the 
+     * sheet. Also name columns for given payments ('id', 'amound', 'type', 
+     * 'date' and 'info'). 
+     * 
+     * @param sheet given sheet that we need prepare for process    
+     */
+    private static void addHeading(Sheet sheet) throws IOException {
         sheet.ensureRowCount(4);
         sheet.ensureColumnCount(10);
         sheet.getCellAt("A1").setValue("income");
@@ -143,6 +158,13 @@ public class Manager {
         sheet.getCellAt("E4").setValue("info");
     }
     
+    /**
+     * Private method that recalculate summary in the sheet. Modify the 
+     * sheet and set values to the cells.
+     * 
+     * @param sheet given sheet for update
+     * @param payment last payment given to the sheet
+     */
     private static void recalculateSummary(Sheet sheet, Payment payment) {
         BigDecimal income =(BigDecimal) sheet.getCellAt("B1").getValue();
         BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
@@ -161,15 +183,33 @@ public class Manager {
         sheet.getCellAt("B3").setValue(sum);
     }
     
+    /**
+     * Method check if year in the spreadsheet already exist.
+     * 
+     * @param spreadSheet given spreadsheet that we want check
+     * @param year year that we want add / delete to the file
+     * @return true if year exist, false otherwise
+     */
     private static boolean checkIfYearExist(SpreadSheet spreadSheet, int year) {
         return spreadSheet.getSheet(String.valueOf(year)) != null;
     }
     
+    /**
+     * Method check if the year is continues or not.
+     * 
+     * @param sheet given sheet with year 
+     * @return true if year is exist, false otherwise
+     */
     private static boolean checkIfYearContinue(Sheet sheet) {
         String last = sheet.getCellAt("A" + sheet.getRowCount()).getTextValue(); 
         return !last.equals("end");
     }
 
+    /**
+     * Save changes in the open file.
+     * 
+     * @param sheet sheet that we need save
+     */
     private static void saveFile(Sheet sheet) throws IOException {
         File newFile = new File("evidence.ods");
         sheet.getSpreadSheet().saveAs(newFile);

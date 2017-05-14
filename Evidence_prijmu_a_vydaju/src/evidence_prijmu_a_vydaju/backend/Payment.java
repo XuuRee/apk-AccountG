@@ -15,8 +15,10 @@ import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 /**
- *
- * @author xiricek
+ * Payment represent single payment with attributes: 'id', 'amount', 'date',
+ * 'type' and 'info'.
+ * 
+ * @author Lukas Suchanek, Michal Iricek, Filip Valchar, Peter Garajko
  */
 public class Payment {
     
@@ -96,4 +98,5 @@ public class Payment {
     public String toString() {
         return  type  + ": " + "amount=" + amount + ", date=" + date + ", info=" + info + '}';
     }  
+    
 }

@@ -14,25 +14,25 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 /**
- *
- * @author xiricek
+ * Main class for program.
+ * 
+ * @author Lukas Suchanek, Michal Iricek Filip Valchar, Peter Garajko
  */
 public class Evidence_prijmu_a_vydaju {
 
     /**
-     * 
-     * @param args
+     * Main method for illustration working program. 
+     * Possible command sequence.
      */
     public static void main(String[] args) throws IOException {
         createFile();
         Manager man = new Manager();
         
         man.startYear(2017);
-        man.startYear(2018);
+        
         Payment pay = new Payment();
         pay.setAmount(new BigDecimal(2000));
         pay.setType(PaymentType.EXPENSE);
@@ -47,16 +47,13 @@ public class Evidence_prijmu_a_vydaju {
         pay2.setInfo("New Info");
         man.registerPayment(pay2);
         
-        
-        //man.registerPayment(pay);
-        //man.countPayments(2019);
-        //man.startYear(2018);
-        //man.registerPayment(pay);
-        //man.countPayments(2017);
+        man.countPayments(2017);
         man.endYear(2017);
-        man.endYear(2018);
     }
     
+    /**
+     * Private method that create new spreadsheet with opening sheet.
+     */
     private static void createFile() throws IOException{
         final Object[][] data = new Object[2][2];
         data[0][0]=new String("PB138 / Moderni znackovaci jazyky a jejich aplikace");
