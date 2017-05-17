@@ -102,13 +102,16 @@ public class Manager {
         }
 
         sheet.ensureRowCount(sheet.getRowCount() + 1);
-
+        
         int row = sheet.getRowCount();
-        sheet.getCellAt("A" + row).setValue(payment.getId());
+        if(payment.getType() == PaymentType.EXPENSE){
+            sheet.getCellAt("B" + row).setValue(payment.getAmount().multiply(new BigDecimal(-1.0)));
+        }else{
         sheet.getCellAt("B" + row).setValue(payment.getAmount());
-        sheet.getCellAt("C" + row).setValue(payment.getType());
-        sheet.getCellAt("D" + row).setValue(payment.getDate());
-        sheet.getCellAt("E" + row).setValue(payment.getInfo());
+        }
+        sheet.getCellAt("A" + row).setValue(payment.getId());
+        sheet.getCellAt("C" + row).setValue(payment.getDate());
+        sheet.getCellAt("D" + row).setValue(payment.getInfo());
 
         recalculateSummary(sheet, payment);
         saveFile(sheet);
@@ -153,9 +156,8 @@ public class Manager {
         sheet.getCellAt("B3").setValue(0.0);
         sheet.getCellAt("A4").setValue("id");
         sheet.getCellAt("B4").setValue("amount");
-        sheet.getCellAt("C4").setValue("type");
-        sheet.getCellAt("D4").setValue("date");
-        sheet.getCellAt("E4").setValue("info");
+        sheet.getCellAt("C4").setValue("date");
+        sheet.getCellAt("D4").setValue("info");
     }
     
     /**

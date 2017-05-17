@@ -28,17 +28,17 @@ public class Evidence_prijmu_a_vydaju {
      * Possible command sequence.
      */
     public static void main(String[] args) throws IOException {
-        createFile();
+        //createFile();
         Manager man = new Manager();
         
-        man.startYear(2017);
+        //man.startYear(2017);
         
         Payment pay = new Payment();
         pay.setAmount(new BigDecimal(2000));
         pay.setType(PaymentType.EXPENSE);
         pay.setDate(LocalDate.now());
         pay.setInfo("Info");
-        man.registerPayment(pay);
+        //man.registerPayment(pay);
         
         Payment pay2 = new Payment();
         pay2.setAmount(new BigDecimal(3000));
@@ -48,7 +48,7 @@ public class Evidence_prijmu_a_vydaju {
         man.registerPayment(pay2);
         
         man.countPayments(2017);
-        man.endYear(2017);
+        //man.endYear(2017);
     }
     
     /**
