@@ -5,12 +5,19 @@
  */
 package evidence_prijmu_a_vydaju;
 
+import evidence_prijmu_a_vydaju.backend.Manager;
+import evidence_prijmu_a_vydaju.backend.YearException;
+import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
+
 /**
  *
  * @author kingc
  */
 public class EvidenceGUI extends javax.swing.JFrame {
 
+    private Manager manager = new Manager();
+    
     /**
      * Creates new form EvidenceGUI
      */
@@ -104,6 +111,7 @@ public class EvidenceGUI extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        new CountPaymentsSwingWorker().execute();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -156,4 +164,14 @@ public class EvidenceGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     // End of variables declaration//GEN-END:variables
+
+    private class CountPaymentsSwingWorker extends SwingWorker<Void, Void> {
+        
+        @Override
+        protected Void doInBackground() throws Exception {
+            JOptionPane.showMessageDialog(null, manager.countPayments());
+            return null;    
+        }
+    
+    }
 }

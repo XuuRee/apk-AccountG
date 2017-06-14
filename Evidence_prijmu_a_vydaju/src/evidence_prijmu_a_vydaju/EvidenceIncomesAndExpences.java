@@ -8,7 +8,7 @@ package evidence_prijmu_a_vydaju;
 import evidence_prijmu_a_vydaju.backend.Manager;
 import evidence_prijmu_a_vydaju.backend.Payment;
 import evidence_prijmu_a_vydaju.backend.PaymentType;
-import evidence_prijmu_a_vydaju.backend.yearException;
+import evidence_prijmu_a_vydaju.backend.YearException;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -28,7 +28,7 @@ public class EvidenceIncomesAndExpences {
      * Main method for illustration working program. 
      * Possible command sequence.
      */
-    public static void main(String[] args) throws IOException, yearException {
+    public static void main(String[] args) throws IOException, YearException {
         createFile();
         Manager man = new Manager();
         

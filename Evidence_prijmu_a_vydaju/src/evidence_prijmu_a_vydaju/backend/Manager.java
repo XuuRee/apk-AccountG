@@ -13,19 +13,20 @@ import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 /**
- * Manager is main class for editing file 'evidence'. Public method that are
+ * Manager is main class for editing file 'evidence'. Public methods that are
  * approachable: startYear, endYear, registerPayment and countPayments.
  * 
- * @author Lukas Suchanek, Michal Iricek Filip Valchar, Peter Garajko
+ * @author Lukas Suchanek, Michal Iricek, Filip Valchar, Peter Garajko
  */
 public class Manager {
     
     /**
      * Method create new sheet in spreadsheet with given year and add rows 
-     * 'income', 'expanse' and 'sum'. Save all changes in document.
+     * 'income', 'expense' and 'sum'. Save all changes in document.
      * 
      * @param year given integer that create new sheet year
-     * @return true if sheet with new year is in the file, false otherwise
+     * @return true if sheet with new year was created, false otherwise
+     * @throws java.io.IOException
      */
     public boolean startYear(int year) throws IOException {
         File file = new File("evidence.ods");
@@ -46,8 +47,9 @@ public class Manager {
      * Method print items 'income', 'expanse' and 'sum'. To the last row 
      * insert 'end' mark. Save all changes in document.
      * 
-     * @param year given integer that create new sheet year
-     * @return true if sheet was close, false otherwise 
+     * @param year given integer that ends sheet year
+     * @return true if sheet has been closed, false otherwise 
+     * @throws java.io.IOException 
      */
     public boolean endYear(int year) throws IOException {
         File file = new File("evidence.ods");
@@ -81,7 +83,7 @@ public class Manager {
      * 'expanse' and 'sum'. All changes save to the file.
      * 
      * @param payment given payment with all details
-     * @return true if payment was add to the document, false otherwise 
+     * @return true if payment was added to the document, false otherwise 
      */
     public boolean registerPayment(Payment payment) throws IOException {
         File file = new File("evidence.ods");
@@ -121,25 +123,26 @@ public class Manager {
     /**
      * Method take given year and print actual balance sheet.
      * 
-     * @param year given year for counting all payments
      * @return true if balance sheet is printed, false otherwise
+     * @throws java.io.IOException
+     * @throws evidence_prijmu_a_vydaju.backend.YearException throw if year does not exist
      */
-    public boolean countPayments(int year) throws IOException {
+    public String countPayments() throws IOException{
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
         
-        if (!checkIfYearExist(spreadSheet, year)) {
-            System.err.println("Year " + year + " wasn't started");
-            return false;
-        }
+//        if (!checkIfYearExist(spreadSheet, year)) {
+//            System.err.println("Year " + year + " wasn't started");
+//            throw new YearException("year does not exist");
+//        }
         
-        Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
-        System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
-        return true;
+        Sheet sheet = spreadSheet.getSheet(spreadSheet.getSheetCount());
+//        System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
+        return "bilance: " + sheet.getCellAt("B3").getTextValue();
     }
     
     /**
-     * Private method that can add items 'income', 'expense' and 'sum' to the 
+     * Private method that adds items 'income', 'expense' and 'sum' to the 
      * sheet. Also name columns for given payments ('id', 'amound', 'type', 
      * 'date' and 'info'). 
      * 
@@ -186,10 +189,10 @@ public class Manager {
     }
     
     /**
-     * Method check if year in the spreadsheet already exist.
+     * Method check if year already exist in the spreadsheet.
      * 
-     * @param spreadSheet given spreadsheet that we want check
-     * @param year year that we want add / delete to the file
+     * @param spreadSheet given spreadsheet in which we want to check
+     * @param year year that we want to check
      * @return true if year exist, false otherwise
      */
     private static boolean checkIfYearExist(SpreadSheet spreadSheet, int year) {
@@ -197,10 +200,10 @@ public class Manager {
     }
     
     /**
-     * Method check if the year is continues or not.
+     * Method check if the given year continues or not.
      * 
      * @param sheet given sheet with year 
-     * @return true if year is exist, false otherwise
+     * @return true if year is actual, false otherwise
      */
     private static boolean checkIfYearContinue(Sheet sheet) {
         String last = sheet.getCellAt("A" + sheet.getRowCount()).getTextValue(); 
@@ -210,7 +213,7 @@ public class Manager {
     /**
      * Save changes in the open file.
      * 
-     * @param sheet sheet that we need save
+     * @param sheet sheet that we need to save
      */
     private static void saveFile(Sheet sheet) throws IOException {
         File newFile = new File("evidence.ods");
