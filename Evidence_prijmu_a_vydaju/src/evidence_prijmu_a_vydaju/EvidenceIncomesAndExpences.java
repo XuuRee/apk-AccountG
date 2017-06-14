@@ -29,10 +29,10 @@ public class EvidenceIncomesAndExpences {
      * Possible command sequence.
      */
     public static void main(String[] args) throws IOException, YearException {
-        createFile();
+        //createFile();
         Manager man = new Manager();
         
-        man.startYear(2017);
+        //man.startYear(2017);
         
         Payment pay = new Payment();
         pay.setAmount(new BigDecimal(2000));

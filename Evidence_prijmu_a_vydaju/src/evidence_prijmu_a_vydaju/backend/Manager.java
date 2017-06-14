@@ -85,7 +85,7 @@ public class Manager {
      * @param payment given payment with all details
      * @return true if payment was added to the document, false otherwise 
      */
-    public boolean registerPayment(Payment payment) throws IOException {
+    public String registerPayment(Payment payment) throws IOException {
         File file = new File("evidence.ods");
         int year = Year.now().getValue();
         
@@ -93,14 +93,14 @@ public class Manager {
         
         if (!checkIfYearExist(spreadSheet, year)) {
             System.err.println("Evidence for this year wasn't started");
-            return false;
+            return "NOTEXIST";
         }
         
         Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
         
         if (!checkIfYearContinue(sheet)) {
             System.err.println("Evidence for this year is already in the end");
-            return false;
+            return "ENDED";
         }
 
         sheet.ensureRowCount(sheet.getRowCount() + 1);
@@ -117,7 +117,7 @@ public class Manager {
 
         recalculateSummary(sheet, payment);
         saveFile(sheet);
-        return true;
+        return "OK";
     }
     
     /**

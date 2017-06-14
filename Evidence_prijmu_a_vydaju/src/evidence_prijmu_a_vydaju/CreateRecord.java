@@ -234,9 +234,11 @@ public class CreateRecord extends javax.swing.JDialog {
             date = Year.now().atMonth(month).atDay(day);
             payment.setDate(date);
             Manager man = new Manager();
-            boolean bool = man.registerPayment(payment);
-            if(!bool){
-                JOptionPane.showMessageDialog(null, "Payment can't be registred");
+            String string = man.registerPayment(payment);
+            if(string.equals("NOTEXIST")){
+                JOptionPane.showMessageDialog(null, "Evidence for this year wasn't started");
+            }else if(string.equals("ENDED")){
+                JOptionPane.showMessageDialog(null, "Evidence for this year was already ended");
             }
             
         } catch (IOException ex) {
