@@ -48,7 +48,7 @@ public class EvidenceIncomesAndExpences {
         pay2.setInfo("New Info");
         man.registerPayment(pay2);
         
-        man.countPayments(2017);
+        man.countPayments();
         man.endYear(2017);
     }
     

@@ -7,6 +7,9 @@ package evidence_prijmu_a_vydaju;
 
 import evidence_prijmu_a_vydaju.backend.Manager;
 import evidence_prijmu_a_vydaju.backend.YearException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
@@ -110,8 +113,12 @@ public class EvidenceGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        new CountPaymentsSwingWorker().execute();
+        try {
+            // TODO add your handling code here:
+            JOptionPane.showMessageDialog(null, manager.countPayments());
+        } catch (IOException ex) {
+            Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -120,7 +127,8 @@ public class EvidenceGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       NewYear record =  new NewYear(this, true);
+       record.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

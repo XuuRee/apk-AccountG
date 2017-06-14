@@ -47,7 +47,7 @@ public class Evidence_prijmu_a_vydaju {
         pay2.setInfo("New Info");
         man.registerPayment(pay2);
         
-        man.countPayments(2017);
+        man.countPayments();
         //man.endYear(2017);
     }
     

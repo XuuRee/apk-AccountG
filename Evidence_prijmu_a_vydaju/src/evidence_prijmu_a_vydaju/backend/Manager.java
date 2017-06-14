@@ -136,7 +136,7 @@ public class Manager {
 //            throw new YearException("year does not exist");
 //        }
         
-        Sheet sheet = spreadSheet.getSheet(spreadSheet.getSheetCount());
+        Sheet sheet = spreadSheet.getSheet(spreadSheet.getSheetCount()-1);
 //        System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
         return "bilance: " + sheet.getCellAt("B3").getTextValue();
     }
