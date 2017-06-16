@@ -5,9 +5,11 @@
  */
 package evidence_prijmu_a_vydaju;
 
+import static evidence_prijmu_a_vydaju.CreateRecord.RET_CANCEL;
 import evidence_prijmu_a_vydaju.backend.Manager;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.Frame; 
 import java.io.IOException;
 import java.time.Year;
 import java.util.logging.Level;
@@ -37,7 +39,7 @@ public class NewYear extends javax.swing.JDialog {
     /**
      * Creates new form NewYear
      */
-    public NewYear(java.awt.Frame parent, boolean modal) {
+    public NewYear(Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
@@ -114,15 +116,15 @@ public class NewYear extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(250, Short.MAX_VALUE)
+                .addContainerGap(202, Short.MAX_VALUE)
                 .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelButton)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(81, 81, 81)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -132,7 +134,7 @@ public class NewYear extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(117, Short.MAX_VALUE)
+                .addContainerGap(62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,9 +186,10 @@ public class NewYear extends javax.swing.JDialog {
     }
 
     /**
-     * @param args the command line arguments
+     * @param parent parent of GUI
+     * @param modal
      */
-    public static void main(String args[]) {
+    public static void startGUI(Frame parent, boolean modal) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -213,11 +216,11 @@ public class NewYear extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                NewYear dialog = new NewYear(new javax.swing.JFrame(), true);
+                NewYear dialog = new NewYear(parent, modal);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+                        dialog.doClose(RET_CANCEL);
                     }
                 });
                 dialog.setVisible(true);
