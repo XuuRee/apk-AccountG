@@ -37,38 +37,38 @@ public class EvidenceGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        createYearButton = new javax.swing.JButton();
+        endYearButton = new javax.swing.JButton();
+        cretaetRecordButton = new javax.swing.JButton();
+        countPaymentsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Create Year");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        createYearButton.setText("Create Year");
+        createYearButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createYearButtonActionPerformed(evt);
             }
         });
 
-        jButton4.setText("End Year");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        endYearButton.setText("End Year");
+        endYearButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                endYearButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setLabel("Create Record");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cretaetRecordButton.setLabel("Create Record");
+        cretaetRecordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cretaetRecordButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Count Payments");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        countPaymentsButton.setText("Count Payments");
+        countPaymentsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                countPaymentsButtonActionPerformed(evt);
             }
         });
 
@@ -79,12 +79,12 @@ public class EvidenceGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
+                    .addComponent(cretaetRecordButton)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(createYearButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4))
-                    .addComponent(jButton3))
+                        .addComponent(endYearButton))
+                    .addComponent(countPaymentsButton))
                 .addContainerGap(266, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -92,42 +92,42 @@ public class EvidenceGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton4))
+                    .addComponent(createYearButton)
+                    .addComponent(endYearButton))
                 .addGap(96, 96, 96)
-                .addComponent(jButton2)
+                .addComponent(cretaetRecordButton)
                 .addGap(105, 105, 105)
-                .addComponent(jButton3)
+                .addComponent(countPaymentsButton)
                 .addGap(22, 22, 22))
         );
 
-        jButton1.getAccessibleContext().setAccessibleName("CreateYear");
-        jButton4.getAccessibleContext().setAccessibleName("EndYear");
-        jButton2.getAccessibleContext().setAccessibleName("CreateRecord");
+        createYearButton.getAccessibleContext().setAccessibleName("CreateYear");
+        endYearButton.getAccessibleContext().setAccessibleName("EndYear");
+        cretaetRecordButton.getAccessibleContext().setAccessibleName("CreateRecord");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void endYearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endYearButtonActionPerformed
         // TODO
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_endYearButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void countPaymentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countPaymentsButtonActionPerformed
         try {
             // TODO add your handling code here:
             JOptionPane.showMessageDialog(null, manager.countPayments());
         } catch (IOException ex) {
             Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_countPaymentsButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void cretaetRecordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cretaetRecordButtonActionPerformed
        CreateRecord.startGUI(this, true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_cretaetRecordButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void createYearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createYearButtonActionPerformed
        NewYear.startGUI(this,true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_createYearButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,10 +165,10 @@ public class EvidenceGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton countPaymentsButton;
+    private javax.swing.JButton createYearButton;
+    private javax.swing.JButton cretaetRecordButton;
+    private javax.swing.JButton endYearButton;
     // End of variables declaration//GEN-END:variables
 
     private class CountPaymentsSwingWorker extends SwingWorker<Void, Void> {
