@@ -6,7 +6,7 @@
 package evidence_prijmu_a_vydaju;
 
 import evidence_prijmu_a_vydaju.backend.Manager;
-import evidence_prijmu_a_vydaju.backend.YearException;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

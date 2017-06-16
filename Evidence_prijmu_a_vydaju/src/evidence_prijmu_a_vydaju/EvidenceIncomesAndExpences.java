@@ -8,7 +8,7 @@ package evidence_prijmu_a_vydaju;
 import evidence_prijmu_a_vydaju.backend.Manager;
 import evidence_prijmu_a_vydaju.backend.Payment;
 import evidence_prijmu_a_vydaju.backend.PaymentType;
-import evidence_prijmu_a_vydaju.backend.YearException;
+
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -30,34 +30,34 @@ public class EvidenceIncomesAndExpences {
      * Main method for illustration working program. 
      * Possible command sequence.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //createFile();
         Manager man = new Manager();
 
         EvidenceGUI.startGUI();
         //man.startYear(2017);
-        try {
-            Payment pay = new Payment();
-            pay.setAmount(new BigDecimal(2000));
-            pay.setType(PaymentType.EXPENSE);
-            pay.setDate(LocalDate.now());
-            pay.setInfo("Info");
-            man.registerPayment(pay);
-        
-            Payment pay2 = new Payment();
-            pay2.setAmount(new BigDecimal(3000));
-            pay2.setType(PaymentType.INCOME);
-            pay2.setDate(LocalDate.now());
-            pay2.setInfo("New Info");
-            man.registerPayment(pay2);
-        
-            man.countPayments();
-            man.endYear(2017);
-        } catch (IOException e) {
-            JFrame frame = new JFrame();
-            JOptionPane.showMessageDialog(frame, "File does not exist", "Dialog",
-            JOptionPane.ERROR_MESSAGE);
-        }  
+//        try {
+//            Payment pay = new Payment();
+//            pay.setAmount(new BigDecimal(2000));
+//            pay.setType(PaymentType.EXPENSE);
+//            pay.setDate(LocalDate.now());
+//            pay.setInfo("Info");
+//            man.registerPayment(pay);
+//        
+//            Payment pay2 = new Payment();
+//            pay2.setAmount(new BigDecimal(3000));
+//            pay2.setType(PaymentType.INCOME);
+//            pay2.setDate(LocalDate.now());
+//            pay2.setInfo("New Info");
+//            man.registerPayment(pay2);
+//        
+//            man.countPayments();
+//            man.endYear(2017);
+//        } catch (IOException e) {
+//            JFrame frame = new JFrame();
+//            JOptionPane.showMessageDialog(frame, "File does not exist", "Dialog",
+//            JOptionPane.ERROR_MESSAGE);
+//        }  
     }
     
     /**
