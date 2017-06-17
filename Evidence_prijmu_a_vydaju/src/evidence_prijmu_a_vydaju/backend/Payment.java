@@ -30,8 +30,11 @@ public class Payment {
     
     public Payment() throws IOException{
         File file = new File("evidence.ods");
-        int year = Year.now().getValue();
-        Sheet sheet = SpreadSheet.createFromFile(file).getSheet(String.valueOf(year));
+        
+        SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
+        int year = Integer.parseInt(spreadSheet.getSheet(spreadSheet
+                .getSheetCount()-1).getName());
+        Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
         Integer number = sheet.getRowCount() - 3;
         this.id = number.longValue();
     }
