@@ -41,6 +41,7 @@ public class EvidenceGUI extends javax.swing.JFrame {
         endYearButton = new javax.swing.JButton();
         cretaetRecordButton = new javax.swing.JButton();
         countPaymentsButton = new javax.swing.JButton();
+        label1 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,33 +73,37 @@ public class EvidenceGUI extends javax.swing.JFrame {
             }
         });
 
+        label1.setText("Menu");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cretaetRecordButton)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(createYearButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(endYearButton))
-                    .addComponent(countPaymentsButton))
-                .addContainerGap(266, Short.MAX_VALUE))
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(countPaymentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(endYearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cretaetRecordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(createYearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(274, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(createYearButton)
-                    .addComponent(endYearButton))
-                .addGap(96, 96, 96)
+                .addGap(23, 23, 23)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(createYearButton)
+                .addGap(18, 18, 18)
+                .addComponent(endYearButton)
+                .addGap(18, 18, 18)
                 .addComponent(cretaetRecordButton)
-                .addGap(105, 105, 105)
+                .addGap(18, 18, 18)
                 .addComponent(countPaymentsButton)
-                .addGap(22, 22, 22))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         createYearButton.getAccessibleContext().setAccessibleName("CreateYear");
@@ -169,6 +174,7 @@ public class EvidenceGUI extends javax.swing.JFrame {
     private javax.swing.JButton createYearButton;
     private javax.swing.JButton cretaetRecordButton;
     private javax.swing.JButton endYearButton;
+    private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 
     private class CountPaymentsSwingWorker extends SwingWorker<Void, Void> {
