@@ -115,7 +115,6 @@ public class EvidenceGUI extends javax.swing.JFrame {
     private void countPaymentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countPaymentsButtonActionPerformed
         try {
             // TODO add your handling code here:
-            String pay = manager.countPayments(); 
             JOptionPane.showMessageDialog(null, manager.countPayments());
         } catch (IOException ex) {
             Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);

@@ -138,6 +138,11 @@ public class CreateRecord extends javax.swing.JDialog {
         jLabel5.setText(".");
 
         monthBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        monthBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monthBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -285,6 +290,10 @@ public class CreateRecord extends javax.swing.JDialog {
     private void daysBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daysBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_daysBoxActionPerformed
+
+    private void monthBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_monthBoxActionPerformed
     
     private void doClose(int retStatus) {
         returnStatus = retStatus;
