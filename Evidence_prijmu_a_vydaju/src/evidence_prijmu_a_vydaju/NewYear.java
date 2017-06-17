@@ -166,8 +166,12 @@ public class NewYear extends javax.swing.JDialog {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         Manager manager = new Manager();
         try {
-           File file = new File("evidence.ods");
+            File file = new File("evidence.ods");
             SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
+            if(checkIfYearExist(spreadSheet, yearBox.getSelectedItem().toString())){
+                JOptionPane.showMessageDialog(null, "Year already started");
+                return;
+            }
             try{
             int yearName = Integer.parseInt(spreadSheet.getSheet(spreadSheet.getSheetCount()-1).getName());
             String end = manager.endYear(Integer.parseInt(spreadSheet.getSheet(spreadSheet.getSheetCount()-1).getName()));
@@ -252,6 +256,10 @@ public class NewYear extends javax.swing.JDialog {
     private static boolean checkIfYearContinue(Sheet sheet) {
         String last = sheet.getCellAt("A" + sheet.getRowCount()).getTextValue(); 
         return !last.equals("end");
+    }
+    
+    private static boolean checkIfYearExist(SpreadSheet spreadSheet, String year) {
+        return spreadSheet.getSheet(year) != null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

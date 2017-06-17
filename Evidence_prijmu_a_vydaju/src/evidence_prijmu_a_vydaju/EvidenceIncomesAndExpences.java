@@ -31,7 +31,7 @@ public class EvidenceIncomesAndExpences {
      * Possible command sequence.
      */
     public static void main(String[] args) throws IOException {
-        //createFile();
+        createFile();
         Manager man = new Manager();
 
         EvidenceGUI.startGUI();
@@ -72,7 +72,9 @@ public class EvidenceIncomesAndExpences {
         TableModel model = new DefaultTableModel(data, columns);
         
         final File file = new File("evidence.ods");
-        SpreadSheet.createEmpty(model).saveAs(file);
+        if(!file.exists()){
+            SpreadSheet.createEmpty(model).saveAs(file);
+        }
     }
     
 }
