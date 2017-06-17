@@ -179,10 +179,8 @@ public class NewYear extends javax.swing.JDialog {
             }catch(NumberFormatException ex){
                 
             }
-            boolean bool = manager.startYear(Integer.valueOf(yearBox.getSelectedItem().toString()));
-            if(!bool){
-                JOptionPane.showMessageDialog(null, "Year already started");
-            }
+            manager.startYear(Integer.valueOf(yearBox.getSelectedItem().toString()));
+            
         } catch (IOException ex) {
             Logger.getLogger(NewYear.class.getName()).log(Level.SEVERE, null, ex);
         }

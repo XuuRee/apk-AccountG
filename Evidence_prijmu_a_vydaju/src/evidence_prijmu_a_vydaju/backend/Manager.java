@@ -65,10 +65,8 @@ public class Manager {
         BigDecimal expense = (BigDecimal) sheet.getCellAt("B2").getValue();
         BigDecimal sum = (BigDecimal) sheet.getCellAt("B3").getValue();
 
-        System.out.println("sum of income: " + income);
-        System.out.println("sum of expenses: " + expense);
-        System.out.println("bilance: " + sum);
-        String string = "sum of income: " + income + "\nsum of expenses: " + expense
+        
+        String string ="year: " + year + "\nsum of income: " + income + "\nsum of expenses: " + expense
                 + "\nbilance: " + sum;     
         int row = sheet.getRowCount() + 1;
         sheet.ensureRowCount(row);
