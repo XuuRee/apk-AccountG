@@ -86,11 +86,10 @@ public class Manager {
      * @return true if payment was added to the document, false otherwise 
      */
     public String registerPayment(Payment payment) throws IOException {
-        File file = new File("evidence.ods");
-        int year = Year.now().getValue();
-        
+        File file = new File("evidence.ods");        
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
-        
+        int year = Integer.parseInt(spreadSheet.getSheet(spreadSheet
+                .getSheetCount()-1).getName());
         if (!checkIfYearExist(spreadSheet, year)) {
             System.err.println("Evidence for this year wasn't started");
             return "NOTEXIST";

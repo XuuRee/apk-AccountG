@@ -39,7 +39,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="yearBox" min="-2" max="-2" attributes="0"/>
+                              <Component id="monthBox" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="noteInput" min="-2" pref="116" max="-2" attributes="0"/>
                           <Component id="typeBox" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -86,7 +86,7 @@
                   <Component id="dateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="daysBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="yearBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="monthBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="106" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -180,7 +180,7 @@
         <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="yearBox">
+    <Component class="javax.swing.JComboBox" name="monthBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">

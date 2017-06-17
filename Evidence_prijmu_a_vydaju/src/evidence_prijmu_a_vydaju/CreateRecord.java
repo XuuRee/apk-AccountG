@@ -56,7 +56,7 @@ public class CreateRecord extends javax.swing.JDialog {
             day[i]= String.valueOf(i+1);
         }
         daysBox.setModel(new javax.swing.DefaultComboBoxModel(day));
-        yearBox.setModel(new javax.swing.DefaultComboBoxModel(month));
+        monthBox.setModel(new javax.swing.DefaultComboBoxModel(month));
         // Close the dialog when Esc is pressed
         String cancelName = "cancel";
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -96,7 +96,7 @@ public class CreateRecord extends javax.swing.JDialog {
         dateLabel = new javax.swing.JLabel();
         daysBox = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        yearBox = new javax.swing.JComboBox<>();
+        monthBox = new javax.swing.JComboBox<>();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -137,7 +137,7 @@ public class CreateRecord extends javax.swing.JDialog {
 
         jLabel5.setText(".");
 
-        yearBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        monthBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,7 +158,7 @@ public class CreateRecord extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(yearBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(monthBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(noteInput, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(typeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -197,7 +197,7 @@ public class CreateRecord extends javax.swing.JDialog {
                     .addComponent(dateLabel)
                     .addComponent(daysBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(yearBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(monthBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
@@ -224,7 +224,7 @@ public class CreateRecord extends javax.swing.JDialog {
             }
             int day = Integer.parseInt(daysBox.getSelectedItem().toString());
             int month = 0;
-            String mont = yearBox.getSelectedItem().toString();
+            String mont = monthBox.getSelectedItem().toString();
             switch (mont){
                 case "January": month = 1;
                 break;
@@ -341,12 +341,12 @@ public class CreateRecord extends javax.swing.JDialog {
     private javax.swing.JLabel dateLabel;
     private javax.swing.JComboBox<String> daysBox;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JComboBox<String> monthBox;
     private javax.swing.JTextField noteInput;
     private javax.swing.JLabel noteLabel;
     private javax.swing.JButton okButton;
     private javax.swing.JComboBox<String> typeBox;
     private javax.swing.JLabel typeLabel;
-    private javax.swing.JComboBox<String> yearBox;
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;
