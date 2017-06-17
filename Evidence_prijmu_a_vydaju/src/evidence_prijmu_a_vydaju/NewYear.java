@@ -10,6 +10,7 @@ import evidence_prijmu_a_vydaju.backend.Manager;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.Frame; 
+import java.io.File;
 import java.io.IOException;
 import java.time.Year;
 import java.util.logging.Level;
@@ -20,6 +21,8 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import org.jopendocument.dom.spreadsheet.Sheet;
+import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 /**
  *
@@ -163,6 +166,15 @@ public class NewYear extends javax.swing.JDialog {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         Manager manager = new Manager();
         try {
+           File file = new File("evidence.ods");
+            SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
+            try{
+            int yearName = Integer.parseInt(spreadSheet.getSheet(spreadSheet.getSheetCount()-1).getName());
+            String end = manager.endYear(Integer.parseInt(spreadSheet.getSheet(spreadSheet.getSheetCount()-1).getName()));
+            JOptionPane.showMessageDialog(null, end);
+            }catch(NumberFormatException ex){
+                
+            }
             boolean bool = manager.startYear(Integer.valueOf(yearBox.getSelectedItem().toString()));
             if(!bool){
                 JOptionPane.showMessageDialog(null, "Year already started");
@@ -236,6 +248,10 @@ public class NewYear extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+    private static boolean checkIfYearContinue(Sheet sheet) {
+        String last = sheet.getCellAt("A" + sheet.getRowCount()).getTextValue(); 
+        return !last.equals("end");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

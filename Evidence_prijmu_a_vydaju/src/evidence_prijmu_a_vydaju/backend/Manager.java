@@ -51,13 +51,12 @@ public class Manager {
      * @return true if sheet has been closed, false otherwise 
      * @throws java.io.IOException 
      */
-    public boolean endYear(int year) throws IOException {
+    public String endYear(int year) throws IOException {
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
         
         if (!checkIfYearExist(spreadSheet, year)) {
-            System.err.println("Year " + year + " wasn't started");
-            return false;
+            return  "NOTSTARTED";
         }
         
         Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
@@ -69,13 +68,14 @@ public class Manager {
         System.out.println("sum of income: " + income);
         System.out.println("sum of expenses: " + expense);
         System.out.println("bilance: " + sum);
-            
+        String string = "sum of income: " + income + "\nsum of expenses: " + expense
+                + "\nbilance: " + sum;     
         int row = sheet.getRowCount() + 1;
         sheet.ensureRowCount(row);
         sheet.getCellAt("A" + row).setValue("end");
         
         saveFile(sheet);
-        return true;
+        return string;
     }
     
     /**
