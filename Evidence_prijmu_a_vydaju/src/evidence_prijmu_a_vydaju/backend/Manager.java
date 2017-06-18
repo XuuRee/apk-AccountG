@@ -120,11 +120,39 @@ public class Manager {
     /**
      * Method take given year and print actual balance sheet.
      * 
-     * @return true if balance sheet is printed, false otherwise
+     * @return balance of current year
      * @throws java.io.IOException
-     * @throws evidence_prijmu_a_vydaju.backend.YearException throw if year does not exist
      */
-    public String countPayments() throws IOException{
+    public String countPayments() throws IOException{   
+        return "Balance: " + getActualSheet().getCellAt("B3").getTextValue() + "\n";
+    }
+    
+    /**
+     * Method get string of incomes during current year 
+     * 
+     * @return incomes of current year
+     * @throws IOException 
+     */
+    public String countIncomes() throws IOException{        
+        return "Incomes: " + getActualSheet().getCellAt("B1").getTextValue() + "\n";
+    }
+    
+    /**
+     * Method get string of expense during current year 
+     * 
+     * @return expense of current year
+     * @throws IOException 
+     */
+    public String countExpense() throws IOException{        
+        return "Expences: " + getActualSheet().getCellAt("B2").getTextValue() + "\n";
+    }
+    
+    /**
+     * Method get sheet for current year
+     * @return sheet which contains information about current year
+     * @throws IOException 
+     */
+    private Sheet getActualSheet() throws IOException{
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
         
@@ -133,14 +161,7 @@ public class Manager {
 //            throw new YearException("year does not exist");
 //        }
         
-        Sheet sheet = spreadSheet.getSheet(spreadSheet.getSheetCount()-1);
-        try{
-            Integer.parseInt(sheet.getName());
-        }catch(NumberFormatException ex){
-            return "ERROR";
-        }
-//        System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
-        return "bilance: " + sheet.getCellAt("B3").getTextValue();
+        return spreadSheet.getSheet(spreadSheet.getSheetCount()-1);
     }
     
     /**

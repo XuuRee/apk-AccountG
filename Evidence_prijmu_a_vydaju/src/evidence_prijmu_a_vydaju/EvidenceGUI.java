@@ -114,7 +114,12 @@ public class EvidenceGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void endYearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endYearButtonActionPerformed
-        // TODO
+        try {
+            JOptionPane.showMessageDialog(null, manager.countIncomes()+
+                    manager.countExpense() + manager.countPayments());
+        } catch (IOException ex) {
+            Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_endYearButtonActionPerformed
 
     private void countPaymentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countPaymentsButtonActionPerformed
