@@ -64,9 +64,10 @@ public class EvidenceIncomesAndExpences {
      * Private method that create new spreadsheet with opening sheet.
      */
     private static void createFile() throws IOException{
-        final Object[][] data = new Object[2][2];
+        final Object[][] data = new Object[3][2];
         data[0][0]=new String("PB138 / Moderni znackovaci jazyky a jejich aplikace");
         data[1][0]=new String("Lukas Suchanek, Michal Iricek, Peter Grajko, Filip Valchar");
+        data[2][0]=new String("end");
         
         String[] columns = new String[] {"Evidence prijmu a vydaju"};
         TableModel model = new DefaultTableModel(data, columns);

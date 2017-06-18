@@ -168,18 +168,13 @@ public class NewYear extends javax.swing.JDialog {
         try {
             File file = new File("evidence.ods");
             SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
-            if(checkIfYearExist(spreadSheet, yearBox.getSelectedItem().toString())){
+            
+            String s = manager.startYear(Integer.valueOf(yearBox.getSelectedItem().toString()));
+            if(s.equals("STARTED")){
                 JOptionPane.showMessageDialog(null, "Year already started");
-                return;
+            }else if(s.equals("PREVIOUS")){
+                JOptionPane.showMessageDialog(null, "Previous year wasn't ended");
             }
-            try{
-            int yearName = Integer.parseInt(spreadSheet.getSheet(spreadSheet.getSheetCount()-1).getName());
-            String end = manager.endYear();
-            JOptionPane.showMessageDialog(null, end);
-            }catch(NumberFormatException ex){
-                
-            }
-            manager.startYear(Integer.valueOf(yearBox.getSelectedItem().toString()));
             
         } catch (IOException ex) {
             Logger.getLogger(NewYear.class.getName()).log(Level.SEVERE, null, ex);

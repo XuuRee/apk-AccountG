@@ -28,19 +28,22 @@ public class Manager {
      * @return true if sheet with new year was created, false otherwise
      * @throws java.io.IOException
      */
-    public boolean startYear(int year) throws IOException {
+    public String startYear(int year) throws IOException {
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
         
         if (checkIfYearExist(spreadSheet, year)) {
             System.err.println("Evidence for year: " + year + " already started");
-            return false;
-        }             
+            return "STARTED";
+        }
+        if(checkIfYearContinue(spreadSheet.getSheet(spreadSheet.getSheetCount()-1))){
+            return "PREVIOUS";
+        }
         
         Sheet newSheet = spreadSheet.addSheet(year + "");
         addHeading(newSheet);
         saveFile(newSheet);
-        return true;
+        return "OK";
     }
     
     /**
@@ -123,7 +126,12 @@ public class Manager {
      * @return balance of current year
      * @throws java.io.IOException
      */
-    public String countPayments() throws IOException{   
+    public String countPayments() throws IOException{
+        try{
+            Integer.parseInt(getActualSheet().getName());
+        }catch(NumberFormatException ex){
+            return "ERROR";
+        }
         return "Balance: " + getActualSheet().getCellAt("B3").getTextValue() + "\n";
     }
     
