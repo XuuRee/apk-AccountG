@@ -134,6 +134,11 @@ public class Manager {
 //        }
         
         Sheet sheet = spreadSheet.getSheet(spreadSheet.getSheetCount()-1);
+        try{
+            Integer.parseInt(sheet.getName());
+        }catch(NumberFormatException ex){
+            return "ERROR";
+        }
 //        System.out.println("bilance: " + sheet.getCellAt("B3").getTextValue());
         return "bilance: " + sheet.getCellAt("B3").getTextValue();
     }
