@@ -174,7 +174,7 @@ public class NewYear extends javax.swing.JDialog {
             }
             try{
             int yearName = Integer.parseInt(spreadSheet.getSheet(spreadSheet.getSheetCount()-1).getName());
-            String end = manager.endYear(Integer.parseInt(spreadSheet.getSheet(spreadSheet.getSheetCount()-1).getName()));
+            String end = manager.endYear();
             JOptionPane.showMessageDialog(null, end);
             }catch(NumberFormatException ex){
                 

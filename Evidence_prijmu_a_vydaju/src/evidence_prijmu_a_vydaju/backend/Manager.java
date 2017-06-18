@@ -51,10 +51,10 @@ public class Manager {
      * @return true if sheet has been closed, false otherwise 
      * @throws java.io.IOException 
      */
-    public String endYear(int year) throws IOException {
+    public String endYear() throws IOException {
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
-        
+        int year = actualYear();
         if (!checkIfYearExist(spreadSheet, year)) {
             return  "NOTSTARTED";
         }
@@ -147,6 +147,14 @@ public class Manager {
         return "Expences: " + getActualSheet().getCellAt("B2").getTextValue() + "\n";
     }
     
+    private int actualYear() throws IOException{
+        try {
+            return Integer.parseInt(getActualSheet().getName());
+        } catch (NumberFormatException e) {
+            System.err.println("You have to start year first");
+            return 0;
+        }
+     }
     /**
      * Method get sheet for current year
      * @return sheet which contains information about current year

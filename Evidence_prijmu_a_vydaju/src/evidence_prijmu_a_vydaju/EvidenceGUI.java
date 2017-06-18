@@ -117,6 +117,7 @@ public class EvidenceGUI extends javax.swing.JFrame {
         try {
             JOptionPane.showMessageDialog(null, manager.countIncomes()+
                     manager.countExpense() + manager.countPayments());
+            manager.endYear();
         } catch (IOException ex) {
             Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
