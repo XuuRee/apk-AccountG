@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?><evidence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="evidence.xsd">
-</evidence>
+<year yid="2017"><payment pid="1"><type>income</type><date>2017-01-01</date><info>a</info><ammount>555</ammount></payment><payment pid="2"><type>expence</type><date>2017-01-02</date><info>b</info><ammount>111</ammount></payment></year><year yid="2018"><payment pid="1"><type>income</type><date>2017-01-01</date><info>a</info><ammount>5555</ammount></payment></year><year yid="2018"><payment pid="1"><type>income</type><date>2017-01-01</date><info/><ammount>55555</ammount></payment></year></evidence>

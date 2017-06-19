@@ -176,17 +176,21 @@ public class Manager {
      */
     public String countsOutput() throws IOException{
         String payColor = "green";
-        String payments = countPayments();
-        String convertPay = payments.replace(",","");
-        convertPay = convertPay.replace("\n","");
-        String[] split = convertPay.split(" ");
-        BigDecimal number = BigDecimal.valueOf(Double.parseDouble(split[1]));
+        String payments = getActualSheet().getCellAt("B3").getTextValue();        
+        
+        String s = payments.replaceAll("\\W", " ");
+        System.out.println(s);
+        
+        BigDecimal number = BigDecimal.valueOf(Double.parseDouble(s.replaceAll("\\W", "")));
         if(number.compareTo(BigDecimal.ZERO)<0){
             payColor = "red";
         }
         return "<html>" + countIncomes()+"<br/>"+countExpense() +"<br/>"
-                + "<font color="+payColor+">"+payments +"</font></html>";
+                + "<font color="+payColor+">Balance: "+payments +"</font></html>";
+           
     }
+    
+    
     
     /**
      * Method get actual year of evidence
