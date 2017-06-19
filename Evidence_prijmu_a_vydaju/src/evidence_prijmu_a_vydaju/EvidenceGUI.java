@@ -139,19 +139,22 @@ public class EvidenceGUI extends javax.swing.JFrame {
     private void countPaymentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countPaymentsButtonActionPerformed
         try {
             // TODO add your handling code here:
-            String s = manager.countPayments();
-            if(s.equals("ERROR")){
+            String str = manager.countPayments();
+            if(str.equals("ERROR")){
                  JOptionPane.showMessageDialog(null, "No year to count");
                  return;
             }
-            String[] split = s.split(" ");
+            String income = manager.countIncomes() + "<br/>";
+            String expence = manager.countExpense() + "<br/>";
+            String[] split = str.split(" ");
             BigDecimal number = BigDecimal.valueOf(Double.parseDouble(split[1]));
+            
             if(number.compareTo(BigDecimal.ZERO)<0){
                 JOptionPane.showMessageDialog(null, new JLabel(
-                "<html><font color='red'>"+s+"</font></html>"));
+                "<html>"+income+expence+"<font color='red'>"+str+"</font></html>"));
             }else{
                 JOptionPane.showMessageDialog(null, new JLabel(
-                "<html><font color='green'>"+s+"</font></html>"));
+                "<html>"+income+expence+"<font color='green'>"+str+"</font></html>"));
             }
         } catch (IOException ex) {
             Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
