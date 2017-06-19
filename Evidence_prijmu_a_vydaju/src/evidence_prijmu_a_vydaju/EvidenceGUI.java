@@ -8,8 +8,10 @@ package evidence_prijmu_a_vydaju;
 import evidence_prijmu_a_vydaju.backend.Manager;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
@@ -115,8 +117,19 @@ public class EvidenceGUI extends javax.swing.JFrame {
 
     private void endYearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endYearButtonActionPerformed
         try {
-            JOptionPane.showMessageDialog(null, manager.countIncomes()+
-                    manager.countExpense() + manager.countPayments());
+            String income = manager.countIncomes();
+            String expense = manager.countExpense();
+            String payments = manager.countPayments();
+            String[] split = payments.split(" ");
+            BigDecimal number = BigDecimal.valueOf(Double.parseDouble(split[1]));
+            if(number.compareTo(BigDecimal.ZERO)<0){
+                JOptionPane.showMessageDialog(null, new JLabel("<html>" + manager.countIncomes()+"<br/>"+
+                    manager.countExpense() + "<br/>"+ "<font color='red'>"+payments +"</font></html>"));
+            }else{
+                JOptionPane.showMessageDialog(null, new JLabel("<html>"+manager.countIncomes()+ "<br/>"+
+                    manager.countExpense() +"<br/>" + "<font color='green'>"+payments +"</font></html>"));
+            }
+            
             manager.endYear();
         } catch (IOException ex) {
             Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,7 +144,15 @@ public class EvidenceGUI extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(null, "No year to count");
                  return;
             }
-            JOptionPane.showMessageDialog(null, s);
+            String[] split = s.split(" ");
+            BigDecimal number = BigDecimal.valueOf(Double.parseDouble(split[1]));
+            if(number.compareTo(BigDecimal.ZERO)<0){
+                JOptionPane.showMessageDialog(null, new JLabel(
+                "<html><font color='red'>"+s+"</font></html>"));
+            }else{
+                JOptionPane.showMessageDialog(null, new JLabel(
+                "<html><font color='green'>"+s+"</font></html>"));
+            }
         } catch (IOException ex) {
             Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
