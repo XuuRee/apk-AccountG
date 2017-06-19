@@ -282,7 +282,7 @@ public class Manager {
         Document doc = initialize();
         Element parent = doc.getDocumentElement();
         Element docYear = doc.createElement("year");
-        docYear.setAttribute("id", Integer.toString(year));
+        docYear.setAttribute("yid", Integer.toString(year));
         parent.appendChild(docYear);
         transformToXml(doc);
     }
@@ -295,7 +295,7 @@ public class Manager {
         NodeList list = doc.getElementsByTagName("year");
         Element parent = (Element)list.item(list.getLength()-1);
         Element paymentElem = doc.createElement("payment");
-        paymentElem.setAttribute("id", payment.getId().toString());
+        paymentElem.setAttribute("pid", payment.getId().toString());
         String type = "expence";
         if (payment.getType() == PaymentType.INCOME){
            type = "income";
