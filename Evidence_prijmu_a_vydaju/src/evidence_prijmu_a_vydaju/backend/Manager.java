@@ -9,8 +9,21 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Year;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.xml.sax.SAXException;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * Manager is main class for editing file 'evidence'. Public methods that are
@@ -43,6 +56,7 @@ public class Manager {
         Sheet newSheet = spreadSheet.addSheet(year + "");
         addHeading(newSheet);
         saveFile(newSheet);
+        createXmlYear(year);
         return "OK";
     }
     
@@ -114,7 +128,7 @@ public class Manager {
         sheet.getCellAt("A" + row).setValue(payment.getId());
         sheet.getCellAt("C" + row).setValue(payment.getDate());
         sheet.getCellAt("D" + row).setValue(payment.getInfo());
-
+        createXmlPayment(payment);
         recalculateSummary(sheet, payment);
         saveFile(sheet);
         return "OK";
@@ -235,7 +249,8 @@ public class Manager {
      * @return true if year exist, false otherwise
      */
     private static boolean checkIfYearExist(SpreadSheet spreadSheet, int year) {
-        return spreadSheet.getSheet(String.valueOf(year)) != null;
+        Sheet sheet = spreadSheet.getSheet(String.valueOf(year));
+        return sheet != null;
     }
     
     /**
@@ -259,4 +274,76 @@ public class Manager {
         sheet.getSpreadSheet().saveAs(newFile);
     }
     
+    /**
+     * create xml year element in xml document 
+     * @param year for creating element
+     */
+    private void createXmlYear(int year){
+        Document doc = initialize();
+        Element parent = doc.getDocumentElement();
+        Element docYear = doc.createElement("year");
+        docYear.setAttribute("id", Integer.toString(year));
+        parent.appendChild(docYear);
+        transformToXml(doc);
+    }
+    /**
+     * create xml payment element in xml document 
+     * @param payment for creating element
+     */
+    private void createXmlPayment(Payment payment){
+        Document doc = initialize();
+        NodeList list = doc.getElementsByTagName("year");
+        Element parent = (Element)list.item(list.getLength()-1);
+        Element paymentElem = doc.createElement("payment");
+        paymentElem.setAttribute("id", payment.getId().toString());
+        String type = "expence";
+        if (payment.getType() == PaymentType.INCOME){
+           type = "income";
+        }
+        Element typeXml = doc.createElement("type");
+        Element dateXml = doc.createElement("date");
+        Element infoXml = doc.createElement("info");
+        Element ammountXml = doc.createElement("ammount");
+        typeXml.appendChild(doc.createTextNode(type));
+        dateXml.appendChild(doc.createTextNode(payment.getDate().toString()));
+        infoXml.appendChild(doc.createTextNode(payment.getInfo()));
+        ammountXml.appendChild(doc.createTextNode(payment.getAmount().toString()));
+        paymentElem.appendChild(typeXml);
+        paymentElem.appendChild(dateXml);
+        paymentElem.appendChild(infoXml);
+        paymentElem.appendChild(ammountXml);
+        parent.appendChild(paymentElem);  
+        transformToXml(doc);
+    }
+    
+    /**
+     * Method initialize xml document
+     */
+    private Document initialize() {
+        Document doc = null;
+        try {
+            File file = new File("./evidence.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = dbFactory.newDocumentBuilder();
+            doc = docBuilder.parse(file);
+            doc.getDocumentElement().normalize();
+        } catch (ParserConfigurationException | IOException | SAXException e) {
+            System.err.println("Parser failed parse file:"+e.getMessage());
+        }
+        return doc;
+    }
+    
+    /**
+     * Method transform document back to output file
+     * @param doc document for transformation
+     */
+    private void transformToXml(Document doc) {
+        try {
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer trans = tf.newTransformer();
+            trans.transform(new DOMSource(doc),new StreamResult(new File("./evidence.xml")));
+        } catch (TransformerException e) {
+            System.err.println("Transformation failed");
+        }
+    }
 }

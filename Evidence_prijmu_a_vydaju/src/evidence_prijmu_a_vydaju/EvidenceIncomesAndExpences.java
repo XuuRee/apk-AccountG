@@ -33,7 +33,6 @@ public class EvidenceIncomesAndExpences {
     public static void main(String[] args) throws IOException {
         createFile();
         Manager man = new Manager();
-
         EvidenceGUI.startGUI();
         //man.startYear(2017);
 //        try {

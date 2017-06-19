@@ -46,10 +46,12 @@ public class NewYear extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
-        String [] type = new String[2];
+        String [] type = new String[4];
         int year = Year.now().getValue();
-        type[0]=String.valueOf(year);
-        type[1]=String.valueOf(year + 1);
+        type[0]=String.valueOf(year + 1);
+        type[1]=String.valueOf(year);
+        type[2]=String.valueOf(year - 1);
+        type[3]=String.valueOf(year - 2);
         yearBox.setModel(new javax.swing.DefaultComboBoxModel(type));
 
         // Close the dialog when Esc is pressed
