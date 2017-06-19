@@ -169,6 +169,30 @@ public class Manager {
         return "Expences: " + getActualSheet().getCellAt("B2").getTextValue() + "\n";
     }
     
+    /**
+     * Prepare string for output from expense, incomes and payments
+     * @return string for output
+     * @throws IOException 
+     */
+    public String countsOutput() throws IOException{
+        String payColor = "green";
+        String payments = countPayments();
+        String convertPay = payments.replace(",","");
+        convertPay = convertPay.replace("\n","");
+        String[] split = convertPay.split(" ");
+        BigDecimal number = BigDecimal.valueOf(Double.parseDouble(split[1]));
+        if(number.compareTo(BigDecimal.ZERO)<0){
+            payColor = "red";
+        }
+        return "<html>" + countIncomes()+"<br/>"+countExpense() +"<br/>"
+                + "<font color="+payColor+">"+payments +"</font></html>";
+    }
+    
+    /**
+     * Method get actual year of evidence
+     * @return number of year
+     * @throws IOException when problem with sheet
+     */
     private int actualYear() throws IOException{
         try {
             return Integer.parseInt(getActualSheet().getName());
@@ -177,6 +201,7 @@ public class Manager {
             return 0;
         }
      }
+    
     /**
      * Method get sheet for current year
      * @return sheet which contains information about current year

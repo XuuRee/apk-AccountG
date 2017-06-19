@@ -117,19 +117,7 @@ public class EvidenceGUI extends javax.swing.JFrame {
 
     private void endYearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endYearButtonActionPerformed
         try {
-            String income = manager.countIncomes();
-            String expense = manager.countExpense();
-            String payments = manager.countPayments();
-            String[] split = payments.split(" ");
-            BigDecimal number = BigDecimal.valueOf(Double.parseDouble(split[1]));
-            if(number.compareTo(BigDecimal.ZERO)<0){
-                JOptionPane.showMessageDialog(null, new JLabel("<html>" + manager.countIncomes()+"<br/>"+
-                    manager.countExpense() + "<br/>"+ "<font color='red'>"+payments +"</font></html>"));
-            }else{
-                JOptionPane.showMessageDialog(null, new JLabel("<html>"+manager.countIncomes()+ "<br/>"+
-                    manager.countExpense() +"<br/>" + "<font color='green'>"+payments +"</font></html>"));
-            }
-            
+            JOptionPane.showMessageDialog(null, new JLabel(manager.countsOutput()));
             manager.endYear();
         } catch (IOException ex) {
             Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,18 +132,7 @@ public class EvidenceGUI extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(null, "No year to count");
                  return;
             }
-            String income = manager.countIncomes() + "<br/>";
-            String expence = manager.countExpense() + "<br/>";
-            String[] split = str.split(" ");
-            BigDecimal number = BigDecimal.valueOf(Double.parseDouble(split[1]));
-            
-            if(number.compareTo(BigDecimal.ZERO)<0){
-                JOptionPane.showMessageDialog(null, new JLabel(
-                "<html>"+income+expence+"<font color='red'>"+str+"</font></html>"));
-            }else{
-                JOptionPane.showMessageDialog(null, new JLabel(
-                "<html>"+income+expence+"<font color='green'>"+str+"</font></html>"));
-            }
+            JOptionPane.showMessageDialog(null, new JLabel(manager.countsOutput()));
         } catch (IOException ex) {
             Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
