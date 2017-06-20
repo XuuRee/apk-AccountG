@@ -176,9 +176,8 @@ public class Manager {
         String payColor = "green";
         String payments = getActualSheet().getCellAt("B3").getTextValue();        
         
-        String convertPay = payments.replace(",", "");
-        BigDecimal number = BigDecimal.valueOf(Double.parseDouble(convertPay));
-        if(number.compareTo(BigDecimal.ZERO)<0){
+        
+        if(payments.contains("-")){
             payColor = "red";
         }
         return "<html>" + countIncomes()+"<br/>"+countExpense() +"<br/>"
