@@ -124,6 +124,8 @@ public class EvidenceGUI extends javax.swing.JFrame {
             manager.endYear();
         } catch (IOException ex) {
             Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(null, new JLabel("You have to start year first"));
         }
     }//GEN-LAST:event_endYearButtonActionPerformed
     

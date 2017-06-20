@@ -172,7 +172,7 @@ public class Manager {
      * @return string for output
      * @throws IOException 
      */
-    public String countsOutput() throws IOException{
+    public String countsOutput() throws IOException,ArrayIndexOutOfBoundsException{
         String payColor = "green";
         String payments = getActualSheet().getCellAt("B3").getTextValue();        
         
