@@ -8,12 +8,10 @@ package evidence_prijmu_a_vydaju.backend;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.Year;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -64,7 +62,6 @@ public class Manager {
      * Method print items 'income', 'expanse' and 'sum'. To the last row 
      * insert 'end' mark. Save all changes in document.
      * 
-     * @param year given integer that ends sheet year
      * @return true if sheet has been closed, false otherwise 
      * @throws java.io.IOException 
      */
@@ -98,7 +95,8 @@ public class Manager {
      * 'expanse' and 'sum'. All changes save to the file.
      * 
      * @param payment given payment with all details
-     * @return true if payment was added to the document, false otherwise 
+     * @return true if payment was added to the document, false otherwise
+     * @throws IOException
      */
     public String registerPayment(Payment payment) throws IOException {
         File file = new File("evidence.ods");        
@@ -178,15 +176,13 @@ public class Manager {
         String payColor = "green";
         String payments = getActualSheet().getCellAt("B3").getTextValue();        
         
-        String s = payments.replaceAll("\\W", " ");
-        System.out.println(s);
-        
-        BigDecimal number = BigDecimal.valueOf(Double.parseDouble(s.replaceAll("\\W", "")));
+        String convertPay = payments.replace(",", "");
+        BigDecimal number = BigDecimal.valueOf(Double.parseDouble(convertPay));
         if(number.compareTo(BigDecimal.ZERO)<0){
             payColor = "red";
         }
         return "<html>" + countIncomes()+"<br/>"+countExpense() +"<br/>"
-                + "<font color="+payColor+">Balance: "+payments +"</font></html>";
+                + "<font color="+payColor+">"+countPayments()+"</font></html>";
            
     }
     
@@ -214,12 +210,6 @@ public class Manager {
     private Sheet getActualSheet() throws IOException{
         File file = new File("evidence.ods");
         SpreadSheet spreadSheet = SpreadSheet.createFromFile(file);
-        
-//        if (!checkIfYearExist(spreadSheet, year)) {
-//            System.err.println("Year " + year + " wasn't started");
-//            throw new YearException("year does not exist");
-//        }
-        
         return spreadSheet.getSheet(spreadSheet.getSheetCount()-1);
     }
     

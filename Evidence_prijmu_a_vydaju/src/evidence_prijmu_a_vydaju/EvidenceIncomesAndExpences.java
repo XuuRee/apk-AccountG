@@ -6,15 +6,8 @@
 package evidence_prijmu_a_vydaju;
 
 import evidence_prijmu_a_vydaju.backend.Manager;
-import evidence_prijmu_a_vydaju.backend.Payment;
-import evidence_prijmu_a_vydaju.backend.PaymentType;
-
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
@@ -29,34 +22,16 @@ public class EvidenceIncomesAndExpences {
     /**
      * Main method for illustration working program. 
      * Possible command sequence.
+     * @param args arguments of program when start
      */
-    public static void main(String[] args) throws IOException {
-        createFile();
+    public static void main(String[] args) {
+        try {
+            createFile();
+        } catch(IOException e) {
+            System.err.println("Problem with file read or write: "+e.getMessage());
+        }
         Manager man = new Manager();
         EvidenceGUI.startGUI();
-        //man.startYear(2017);
-//        try {
-//            Payment pay = new Payment();
-//            pay.setAmount(new BigDecimal(2000));
-//            pay.setType(PaymentType.EXPENSE);
-//            pay.setDate(LocalDate.now());
-//            pay.setInfo("Info");
-//            man.registerPayment(pay);
-//        
-//            Payment pay2 = new Payment();
-//            pay2.setAmount(new BigDecimal(3000));
-//            pay2.setType(PaymentType.INCOME);
-//            pay2.setDate(LocalDate.now());
-//            pay2.setInfo("New Info");
-//            man.registerPayment(pay2);
-//        
-//            man.countPayments();
-//            man.endYear(2017);
-//        } catch (IOException e) {
-//            JFrame frame = new JFrame();
-//            JOptionPane.showMessageDialog(frame, "File does not exist", "Dialog",
-//            JOptionPane.ERROR_MESSAGE);
-//        }  
     }
     
     /**
@@ -64,9 +39,9 @@ public class EvidenceIncomesAndExpences {
      */
     private static void createFile() throws IOException{
         final Object[][] data = new Object[3][2];
-        data[0][0]=new String("PB138 / Moderni znackovaci jazyky a jejich aplikace");
-        data[1][0]=new String("Lukas Suchanek, Michal Iricek, Peter Grajko, Filip Valchar");
-        data[2][0]=new String("end");
+        data[0][0]="PB138 / Moderni znackovaci jazyky a jejich aplikace";
+        data[1][0]="Lukas Suchanek, Michal Iricek, Peter Grajko, Filip Valchar";
+        data[2][0]="end";
         
         String[] columns = new String[] {"Evidence prijmu a vydaju"};
         TableModel model = new DefaultTableModel(data, columns);

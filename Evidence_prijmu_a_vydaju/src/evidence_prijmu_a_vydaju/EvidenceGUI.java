@@ -8,16 +8,15 @@ package evidence_prijmu_a_vydaju;
 import evidence_prijmu_a_vydaju.backend.Manager;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
- * @author kingc
+ * @author Peter Grajko
  */
 public class EvidenceGUI extends javax.swing.JFrame {
 
@@ -41,7 +40,7 @@ public class EvidenceGUI extends javax.swing.JFrame {
 
         createYearButton = new javax.swing.JButton();
         endYearButton = new javax.swing.JButton();
-        cretaetRecordButton = new javax.swing.JButton();
+        createRecordButton = new javax.swing.JButton();
         countPaymentsButton = new javax.swing.JButton();
         label1 = new java.awt.Label();
 
@@ -61,10 +60,10 @@ public class EvidenceGUI extends javax.swing.JFrame {
             }
         });
 
-        cretaetRecordButton.setLabel("Create Record");
-        cretaetRecordButton.addActionListener(new java.awt.event.ActionListener() {
+        createRecordButton.setLabel("Create Record");
+        createRecordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cretaetRecordButtonActionPerformed(evt);
+                createRecordButtonActionPerformed(evt);
             }
         });
 
@@ -88,7 +87,7 @@ public class EvidenceGUI extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(countPaymentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(endYearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cretaetRecordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(createRecordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(createYearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(274, Short.MAX_VALUE))
         );
@@ -102,7 +101,7 @@ public class EvidenceGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(endYearButton)
                 .addGap(18, 18, 18)
-                .addComponent(cretaetRecordButton)
+                .addComponent(createRecordButton)
                 .addGap(18, 18, 18)
                 .addComponent(countPaymentsButton)
                 .addContainerGap(38, Short.MAX_VALUE))
@@ -110,11 +109,15 @@ public class EvidenceGUI extends javax.swing.JFrame {
 
         createYearButton.getAccessibleContext().setAccessibleName("CreateYear");
         endYearButton.getAccessibleContext().setAccessibleName("EndYear");
-        cretaetRecordButton.getAccessibleContext().setAccessibleName("CreateRecord");
+        createRecordButton.getAccessibleContext().setAccessibleName("CreateRecord");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Action after end year button clicked
+     * @param evt event after button clicked
+     */
     private void endYearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endYearButtonActionPerformed
         try {
             JOptionPane.showMessageDialog(null, new JLabel(manager.countsOutput()));
@@ -123,7 +126,11 @@ public class EvidenceGUI extends javax.swing.JFrame {
             Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_endYearButtonActionPerformed
-
+    
+    /**
+     * Action after count payments button clicked
+     * @param evt event after button clicked
+     */
     private void countPaymentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countPaymentsButtonActionPerformed
         try {
             // TODO add your handling code here:
@@ -138,16 +145,24 @@ public class EvidenceGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_countPaymentsButtonActionPerformed
 
-    private void cretaetRecordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cretaetRecordButtonActionPerformed
+    /**
+     * Action after create record button clicked
+     * @param evt event after button clicked
+     */
+    private void createRecordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createRecordButtonActionPerformed
        CreateRecord.startGUI(this, true);
-    }//GEN-LAST:event_cretaetRecordButtonActionPerformed
-
+    }//GEN-LAST:event_createRecordButtonActionPerformed
+    
+    /**
+     * Action after create year button clicked
+     * @param evt event after button clicked
+     */
     private void createYearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createYearButtonActionPerformed
        NewYear.startGUI(this,true);
     }//GEN-LAST:event_createYearButtonActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Method start main GUI
      */
     public static void startGUI() {
         /* Set the Nimbus look and feel */
@@ -162,34 +177,25 @@ public class EvidenceGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EvidenceGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EvidenceGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EvidenceGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EvidenceGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EvidenceGUI().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new EvidenceGUI().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton countPaymentsButton;
+    private javax.swing.JButton createRecordButton;
     private javax.swing.JButton createYearButton;
-    private javax.swing.JButton cretaetRecordButton;
     private javax.swing.JButton endYearButton;
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 
-    private class CountPaymentsSwingWorker extends SwingWorker<Void, Void> {
+    /*private class CountPaymentsSwingWorker extends SwingWorker<Void, Void> {
         
         @Override
         protected Void doInBackground() throws IOException {
@@ -197,5 +203,5 @@ public class EvidenceGUI extends javax.swing.JFrame {
             return null;    
         }
     
-    }
+    }*/
 }

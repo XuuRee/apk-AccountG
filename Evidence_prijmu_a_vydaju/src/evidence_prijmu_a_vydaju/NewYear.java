@@ -5,7 +5,6 @@
  */
 package evidence_prijmu_a_vydaju;
 
-import static evidence_prijmu_a_vydaju.CreateRecord.RET_CANCEL;
 import evidence_prijmu_a_vydaju.backend.Manager;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -21,14 +20,16 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.JDialog;
+import javax.swing.UnsupportedLookAndFeelException;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 /**
- *
+ * 
  * @author lsuchanek
  */
-public class NewYear extends javax.swing.JDialog {
+public class NewYear extends JDialog {
 
     /**
      * A return status code - returned if Cancel button has been pressed
@@ -41,6 +42,8 @@ public class NewYear extends javax.swing.JDialog {
 
     /**
      * Creates new form NewYear
+     * @param parent GUI which start new year GUI
+     * @param modal 
      */
     public NewYear(Frame parent, boolean modal) {
         super(parent, modal);
@@ -60,6 +63,7 @@ public class NewYear extends javax.swing.JDialog {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
         ActionMap actionMap = getRootPane().getActionMap();
         actionMap.put(cancelName, new AbstractAction() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 doClose(RET_CANCEL);
             }
@@ -164,7 +168,12 @@ public class NewYear extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Method perform action after button is pressed
+     * Start action of starting year in evidence
+     * @param evt event start when button pressed
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         Manager manager = new Manager();
         try {
@@ -185,21 +194,35 @@ public class NewYear extends javax.swing.JDialog {
         doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
 
+    /**
+     * Method perform action after clicking on close button
+     * Dialog is closed after performing and evidence stay unchanged
+     * @param evt event after close button is pressed
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
      * Closes the dialog
+     * @param evt event after close dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
 
+    /**
+     * Method can be used if something should change after using dialog box  
+     * @param evt event after working with box
+     */
     private void yearBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_yearBoxActionPerformed
     
+    /**
+     * Close GUI and dispose resources
+     * @param retStatus status if window was closed properly
+     */
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
@@ -223,29 +246,20 @@ public class NewYear extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewYear.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewYear.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewYear.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(NewYear.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                NewYear dialog = new NewYear(parent, modal);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        dialog.doClose(RET_CANCEL);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            NewYear dialog = new NewYear(parent, modal);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    dialog.doClose(RET_CANCEL);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
     private static boolean checkIfYearContinue(Sheet sheet) {

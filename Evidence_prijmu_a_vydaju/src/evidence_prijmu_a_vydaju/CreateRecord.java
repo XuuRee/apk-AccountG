@@ -20,15 +20,17 @@ import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import java.awt.Frame;
+import java.awt.EventQueue;
 
 /**
  *
  * @author lsuchanek
  */
-public class CreateRecord extends javax.swing.JDialog {
+public class CreateRecord extends JDialog {
 
     /**
      * A return status code - returned if Cancel button has been pressed
@@ -41,6 +43,8 @@ public class CreateRecord extends javax.swing.JDialog {
 
     /**
      * Creates new form CreateRecord
+     * @param parent GUI which start this GUI
+     * @param modal
      */
     public CreateRecord(Frame parent, boolean modal) {
         super(parent, modal);
@@ -63,6 +67,7 @@ public class CreateRecord extends javax.swing.JDialog {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
         ActionMap actionMap = getRootPane().getActionMap();
         actionMap.put(cancelName, new AbstractAction() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 doClose(RET_CANCEL);
             }
@@ -226,6 +231,11 @@ public class CreateRecord extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     /**
+     * Method perform action after button is pressed
+     * Start action of add record into evidence
+     * @param evt event start when button pressed
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         Payment payment;
         try {
@@ -268,8 +278,7 @@ public class CreateRecord extends javax.swing.JDialog {
                 break;
             }
             int year = Year.now().getValue();
-            LocalDate date = null;
-            date = Year.now().atMonth(month).atDay(day);
+            LocalDate date = Year.now().atMonth(month).atDay(day);
             payment.setDate(date);
             Manager man = new Manager();
             String string = man.registerPayment(payment);
@@ -286,26 +295,44 @@ public class CreateRecord extends javax.swing.JDialog {
         
         doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
-
+    
+    /**
+     * Method perform action after clicking on close button
+     * Dialog is closed after performing and evidence stay unchanged
+     * @param evt event after close button is pressed
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     /**
      * Closes the dialog
+     * @param evt event after close dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
-
+    
+    /**
+     * Method can perform functionality after manipulation with day box
+     * @param evt event after manipulation
+     */
     private void daysBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daysBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_daysBoxActionPerformed
-
+    
+    /**
+     * Method can perform functionality after manipulation with month box
+     * @param evt event after manipulation
+     */
     private void monthBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_monthBoxActionPerformed
     
+    /**
+     * Close dialog and dispose resources
+     * @param retStatus status if dialog was closed properly
+     */
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
@@ -313,7 +340,9 @@ public class CreateRecord extends javax.swing.JDialog {
     }
 
     /**
-     * @param args the command line arguments
+     * Method start GUI for creating records
+     * @param parent GUI which start this GUI
+     * @param modal
      */
     public static void startGUI(Frame parent, boolean modal) {
         /* Set the Nimbus look and feel */
@@ -328,29 +357,21 @@ public class CreateRecord extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateRecord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateRecord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateRecord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | 
+                javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CreateRecord.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CreateRecord dialog = new CreateRecord(parent, modal);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        dialog.doClose(RET_CANCEL);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        EventQueue.invokeLater(() -> {
+            CreateRecord dialog = new CreateRecord(parent, modal);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    dialog.doClose(RET_CANCEL);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
