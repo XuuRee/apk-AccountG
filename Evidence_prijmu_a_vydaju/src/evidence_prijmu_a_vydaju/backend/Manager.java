@@ -59,7 +59,7 @@ public class Manager {
     }
     
     /**
-     * Method print items 'income', 'expanse' and 'sum'. To the last row 
+     * Method print items 'income', 'expense' and 'sum'. To the last row 
      * insert 'end' mark. Save all changes in document.
      * 
      * @return true if sheet has been closed, false otherwise 
