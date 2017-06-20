@@ -290,6 +290,8 @@ public class CreateRecord extends JDialog {
             
         } catch (IOException ex) {
             Logger.getLogger(CreateRecord.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "No year was created yet");
         }
         
         
