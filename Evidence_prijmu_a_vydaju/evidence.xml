@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<?xml-stylesheet href="evidence_transform.xsl" type="text/xsl" ?>
-<evidence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="evidence.xsd">
+<?xml version="1.0" encoding="utf-8" standalone="no"?><?xml-stylesheet href="evidence_transform.xsl" type="text/xsl" ?><evidence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="evidence.xsd">
     <year yid="2015">
         <payment pid="1">
             <type>income</type>
@@ -35,4 +33,4 @@
             <ammount>555</ammount>
         </payment>
     </year>
-</evidence>
+<year yid="2018"/></evidence>
