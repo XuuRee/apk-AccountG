@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "docbook-xml-4.5/docbookx.dtd">
+    <book lang="cs">
+        <title>Záverečná zpráva</title>
+        <subtitle>Desktopová aplikace v jazyce Java pro evidenci příjmů a výdajů</subtitle>
+        <bookinfo>
+            <authorgroup>
+                <author>
+                    <firstname>
+                        Filip
+                    </firstname>
+                    <surname>
+                        Valchář
+                    </surname>
+                    <email>
+                        433439
+                    </email>
+                </author>
+            </authorgroup>
+            <pubdate>2017-20-06</pubdate>
+        </bookinfo>
+        <chapter>
+            <title>Popis projektu</title>
+            <section>
+                <title>Zadání</title>
+                <para>
+                    Studenti navrhnou a implementují jednoduchou aplikaci pro evidenci příjmů a výdajů. 
+                    Data budou ukládána do tabulky ve formátu Open Document Spreadsheet. Aplikace by měla 
+                    umět následující operace: zahájit nový rok, ukončit roční účtování - spočítat celkovou 
+                    výši příjmů, výdajů a roční zisk, zaevidovat přijatou platbu (příjem/výdej), spočítat 
+                    aktuální bilanci plateb.
+                </para>
+            </section>
+        </chapter>
+        <chapter>
+            <title>Záverečná zpráva</title>
+            <section>
+                <author>Filip Valchář</author>
+                <title>Backend, Návrh</title>
+                <description>
+                    <para>
+                        Má práce spočívala zejména v první částí vývoje aplikace: při návrhu a plánovaní projektu a backend 
+                        vývoje. Pomáhal jsem navrhovat základní stavební mechanismy programu a snažil se přijít na ideální 
+                        koncept aplikace, tak aby vyhovovala zadání a splňovala požadovanou funkcionalitu.
+                    </para>
+                    <para>
+                        Praktickou část backend vývoje jsem pak pomáhal programovat základní metody použité
+                        v programu pro práci s dokumentem. Jedná se o metodz countPayment, startYear, endYear 
+                        a jejich podpůrné metody, které tvoří základní kostru programu. Podílel jsem se také 
+                        na refactoringu a přepisování podstatné části kódu, které tvoří podklad pro třídu Manager.
+                    </para>
+                    <para>
+                        Myslím, že se nám společně podařilo splnit zadání a výsledný program je funkční.
+                    </para>
+                </description>
+            </section>
+        </chapter>
+    </book>
