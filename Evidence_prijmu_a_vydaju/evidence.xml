@@ -1,2 +1,38 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?><evidence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="evidence.xsd">
-<year yid="2015"><payment pid="1"><type>income</type><date>2017-01-01</date><info>predal som ladvinu</info><ammount>6666</ammount></payment><payment pid="2"><type>expence</type><date>2017-01-02</date><info>prepil som v karcme</info><ammount>6600</ammount></payment><payment pid="3"><type>expence</type><date>2017-01-03</date><info>Doktor: zlyhala mi ladvina</info><ammount>100</ammount></payment><payment pid="4"><type>expence</type><date>2017-01-07</date><info>kupil som ladvinu</info><ammount>10000</ammount></payment></year><year yid="2016"><payment pid="1"><type>income</type><date>2017-01-01</date><info>rwfw</info><ammount>555</ammount></payment></year></evidence>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml-stylesheet href="evidence_transform.xsl" type="text/xsl" ?>
+<evidence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="evidence.xsd">
+    <year yid="2015">
+        <payment pid="1">
+            <type>income</type>
+            <date>2017-01-01</date>
+            <info>predal som ladvinu</info>
+            <ammount>6666</ammount>
+        </payment>
+        <payment pid="2">
+            <type>expence</type>
+            <date>2017-01-02</date>
+            <info>prepil som v karcme</info>
+            <ammount>6600</ammount>
+        </payment>
+        <payment pid="3">
+            <type>expence</type>
+            <date>2017-01-03</date>
+            <info>Doktor: zlyhala mi ladvina</info>
+            <ammount>100</ammount>
+        </payment>
+        <payment pid="4">
+            <type>expence</type>
+            <date>2017-01-07</date>
+            <info>kupil som ladvinu</info>
+            <ammount>10000</ammount>
+        </payment>
+    </year>
+    <year yid="2016">
+        <payment pid="1">
+            <type>income</type>
+            <date>2017-01-01</date>
+            <info>rwfw</info>
+            <ammount>555</ammount>
+        </payment>
+    </year>
+</evidence>
