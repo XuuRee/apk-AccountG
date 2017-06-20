@@ -194,14 +194,4 @@ public class EvidenceGUI extends javax.swing.JFrame {
     private javax.swing.JButton endYearButton;
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
-
-    /*private class CountPaymentsSwingWorker extends SwingWorker<Void, Void> {
-        
-        @Override
-        protected Void doInBackground() throws IOException {
-            JOptionPane.showMessageDialog(null, manager.countPayments());
-            return null;    
-        }
-    
-    }*/
 }
