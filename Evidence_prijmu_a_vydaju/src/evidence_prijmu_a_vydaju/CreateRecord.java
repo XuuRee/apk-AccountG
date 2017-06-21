@@ -41,6 +41,7 @@ public class CreateRecord extends JDialog {
      */
     public static final int RET_OK = 1;
 
+    private EvidenceGUI parent;
     /**
      * Creates new form CreateRecord
      * @param parent GUI which start this GUI
@@ -48,6 +49,7 @@ public class CreateRecord extends JDialog {
      */
     public CreateRecord(Frame parent, boolean modal) {
         super(parent, modal);
+        this.parent = (EvidenceGUI)parent;
         initComponents();
         String [] type = new String[2];
         type[0]="INCOME";
@@ -287,13 +289,12 @@ public class CreateRecord extends JDialog {
             }else if(string.equals("ENDED")){
                 JOptionPane.showMessageDialog(null, "Evidence for this year was already ended");
             }
-            
+            parent.addRowPayment(payment);
         } catch (IOException ex) {
             Logger.getLogger(CreateRecord.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "No year was created yet");
         }
-        
         
         doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed

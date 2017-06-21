@@ -6,13 +6,17 @@
 package evidence_prijmu_a_vydaju;
 
 import evidence_prijmu_a_vydaju.backend.Manager;
+import evidence_prijmu_a_vydaju.backend.Payment;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
@@ -27,8 +31,27 @@ public class EvidenceGUI extends javax.swing.JFrame {
      */
     public EvidenceGUI() {
         initComponents();
+        initPaymentTable();
+    }
+    
+    public void addRowPayment(Payment payment){
+        PaymentsTableModel model = (PaymentsTableModel) jTable1.getModel();
+        model.addPayment(payment);
     }
 
+    private void initPaymentTable() {
+        try {
+            List<Payment> payments = manager.getAllPayments();
+            
+//            System.out.println(payments.size());
+            
+            PaymentsTableModel model = (PaymentsTableModel) jTable1.getModel();
+            model.setList(payments);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, new JLabel("IO problem, file could not be read"));
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,6 +66,8 @@ public class EvidenceGUI extends javax.swing.JFrame {
         createRecordButton = new javax.swing.JButton();
         countPaymentsButton = new javax.swing.JButton();
         label1 = new java.awt.Label();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +101,9 @@ public class EvidenceGUI extends javax.swing.JFrame {
 
         label1.setText("Menu");
 
+        jTable1.setModel(new PaymentsTableModel());
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,28 +111,39 @@ public class EvidenceGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(countPaymentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(endYearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(createRecordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(createYearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(274, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(595, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(countPaymentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(endYearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(createRecordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(createYearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(createYearButton)
-                .addGap(18, 18, 18)
-                .addComponent(endYearButton)
-                .addGap(18, 18, 18)
-                .addComponent(createRecordButton)
-                .addGap(18, 18, 18)
-                .addComponent(countPaymentsButton)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(createYearButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(endYearButton)
+                        .addGap(24, 24, 24)
+                        .addComponent(createRecordButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(countPaymentsButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))))
         );
 
         createYearButton.getAccessibleContext().setAccessibleName("CreateYear");
@@ -122,6 +161,8 @@ public class EvidenceGUI extends javax.swing.JFrame {
         try {
             JOptionPane.showMessageDialog(null, new JLabel(manager.countsOutput()));
             manager.endYear();
+            PaymentsTableModel model = (PaymentsTableModel) jTable1.getModel();
+            model.clearList();
         } catch (IOException ex) {
             Logger.getLogger(EvidenceGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -194,6 +235,75 @@ public class EvidenceGUI extends javax.swing.JFrame {
     private javax.swing.JButton createRecordButton;
     private javax.swing.JButton createYearButton;
     private javax.swing.JButton endYearButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
+
+    private static final String[] PAYMENTS_COLUMN_NAMES = {
+        "Amount",
+        "Type",
+        "Date",
+        "Note"
+    };
+    
+    private class PaymentsTableModel extends AbstractTableModel {
+
+        private List<Payment> payments = new ArrayList<>();
+        
+        @Override
+        public int getRowCount() {
+            return payments.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 4;
+        }
+        
+        @Override
+        public String getColumnName(int columnIndex) {
+            if (columnIndex >= 0 && columnIndex <= 4) {
+                return PAYMENTS_COLUMN_NAMES[columnIndex];
+            } else {
+                throw new IllegalArgumentException("Wrong column index");
+            }
+        }
+        
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Payment payment = payments.get(rowIndex);
+            switch (columnIndex) {
+                case 0:
+                    return payment.getAmount();
+                case 1:
+                    return payment.getType();
+                case 2:
+                    return payment.getDate();
+                case 3:
+                    return payment.getInfo();
+                default:
+                    throw new IllegalArgumentException("Wrong column index");
+            }
+        }
+        
+        public void addPayment(Payment payment) {
+            payments.add(payment);
+            int lastRow = payments.size() - 1;
+            fireTableRowsInserted(lastRow, lastRow);
+        }
+        
+        public void setList(List<Payment> newPayments) {
+            payments = newPayments;
+            fireTableRowsInserted(0, newPayments.size());
+        }
+        
+        public void clearList() {
+            int size = payments.size();
+            payments.clear();
+            fireTableRowsDeleted(0, size);
+        }
+        
+    }
+    
 }

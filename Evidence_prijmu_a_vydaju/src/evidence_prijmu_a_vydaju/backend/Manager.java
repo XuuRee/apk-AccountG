@@ -8,6 +8,10 @@ package evidence_prijmu_a_vydaju.backend;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -185,7 +189,25 @@ public class Manager {
            
     }
     
-    
+    public List<Payment> getAllPayments() throws IOException {
+        List<Payment> payments = new ArrayList<>();
+        Sheet sheet = getActualSheet();
+        if (sheet.getCellAt("A" + sheet.getRowCount()).getTextValue().equals("end")) {
+            return payments;
+        }
+        for (int i = 5; i < sheet.getRowCount()+1; i++) {
+            payments.add(new Payment());
+            payments.get(i-5).setAmount((BigDecimal) sheet.getCellAt("B"+i).getValue());
+            payments.get(i-5).setDate(LocalDate.parse(sheet.getCellAt("C"+i).getTextValue()));
+            payments.get(i-5).setInfo(sheet.getCellAt("D"+i).getTextValue());
+            if (payments.get(i-5).getAmount().doubleValue() >= 0.0) {
+                payments.get(i-5).setType(PaymentType.INCOME);
+            } else {
+                payments.get(i-5).setType(PaymentType.EXPENSE);
+            }
+        }
+        return payments;
+    }
     
     /**
      * Method get actual year of evidence
