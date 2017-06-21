@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
     <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "docbook-xml-4.5/docbookx.dtd">
     <book lang="cs">
-        <title>Záverečná zpráva</title>
+        <title>Závěrečná zpráva</title>
         <subtitle>Desktopová aplikace v jazyce Java pro evidenci příjmů a výdajů</subtitle>
         <bookinfo>
             <authorgroup>
@@ -45,9 +45,10 @@
                     </para>
                     <para>
                         Praktickou část backend vývoje jsem pak pomáhal programovat základní metody použité
-                        v programu pro práci s dokumentem. Jedná se o metodz countPayment, startYear, endYear 
-                        a jejich podpůrné metody, které tvoří základní kostru programu. Podílel jsem se také 
-                        na refactoringu a přepisování podstatné části kódu, které tvoří podklad pro třídu Manager.
+                        v programu pro práci s dokumentem. Jedná se o metody countPayment, registerPayment,
+                        startYear, endYear a jejich podpůrné metody, které tvoří základní kostru programu. 
+                        Podílel jsem se také na refactoringu a přepisování podstatné části kódu, které tvoří 
+                        podklad pro třídu Manager. Dále jsem vytvořil dokumentaci (wiki, komentáře ke kódu).
                     </para>
                     <para>
                         Myslím, že se nám společně podařilo splnit zadání a výsledný program je funkční.
