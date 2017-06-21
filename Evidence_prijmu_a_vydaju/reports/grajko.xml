@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "docbook-xml-4.5/docbookx.dtd">
+    <book lang="cs">
+        <title>Záverecná zpráva</title>
+        <subtitle>Desktopová aplikace v jazyce Java pro evidenci príjmu a výdaju</subtitle>
+        <bookinfo>
+            <authorgroup>
+                <author>
+                    <firstname>
+						Peter
+                    </firstname>
+                    <surname>
+						Grajko
+                    </surname>
+                    <email>
+                        445302
+                    </email>
+                </author>
+            </authorgroup>
+            <pubdate>2017-21-06</pubdate>
+        </bookinfo>
+        <chapter>
+            <title>Popis projektu</title>
+            <section>
+                <title>Zadání</title>
+                <para>
+                    Studenti navrhnou a implementují jednoduchou aplikaci pro evidenci príjmu a výdaju. 
+                    Data budou ukládána do tabulky ve formátu Open Document Spreadsheet. Aplikace by mela 
+                    umet následující operace: zahájit nový rok, ukoncit rocní úctování - spocítat celkovou 
+                    výši príjmu, výdaju a rocní zisk, zaevidovat prijatou platbu (príjem/výdej), spocítat 
+                    aktuální bilanci plateb.
+                </para>
+            </section>
+        </chapter>
+        <chapter>
+            <title>Záverecná zpráva</title>
+            <section>
+                <author>Filip Valchár</author>
+                <title>Backend, Návrh</title>
+                <description>
+                    <para>
+                        V mojej casti práce som vytváral a upravoval funkcionalitu grafického rozhrania aplikácie podla
+						návrhu aplikácie vytvoreného na zaciatku a podla uz implementovanej funkcionality backendu.
+						V tejto casti islo hlavne o vytvorenie zakladnych buttonov na otvaranie roznych GUI pripadne 
+						ukoncovacych buttonov a ich funkcionalitu.						
+                    </para>
+                    <para>
+                        V dalsej casti som doprogramoval v bakende pomocne funkcie ktore sa hodilo zapojit do funkcionality 
+						GUI napr. countsPayment a s tým súcisiace metódy ako sú ostatné county ci getActualSheet. Neskor som
+						doplnal funkcionalitu na geerovanie xml suboru a jeho xsd schema. Metody na generovanie suboru sa
+						vacsinou zacinali createXml kedze vytvarali nejaky element v xml súboru.
+                    </para>
+                    <para>
+                        Myslím, že se nám spolecne podarilo splnit zadání a výsledný program je funkcní.
+                    </para>
+                </description>
+            </section>
+        </chapter>
+    </book>
