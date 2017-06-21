@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
     <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "docbook-xml-4.5/docbookx.dtd">
-    <book lang="cs">
+    <book lang="sk">
         <title>Záverecná zpráva</title>
         <subtitle>Desktopová aplikace v jazyce Java pro evidenci príjmu a výdaju</subtitle>
         <bookinfo>
@@ -22,7 +22,7 @@
         <chapter>
             <title>Popis projektu</title>
             <section>
-                <title>Zadání</title>
+                <title>Zadánie</title>
                 <para>
                     Studenti navrhnou a implementují jednoduchou aplikaci pro evidenci príjmu a výdaju. 
                     Data budou ukládána do tabulky ve formátu Open Document Spreadsheet. Aplikace by mela 
